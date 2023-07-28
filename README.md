@@ -16,6 +16,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
         - ##### decals : check if good
         - ##### strings : check if good
         - ##### parts
+            - ###### uniformize parts type category
             - ###### check usefulness of GeneratorRequiresDoor = false & NoAutoDoors = true
             - ###### check replacement of AreaAmmoDrain for WifiProvider
             - ##### ai mainframe
@@ -43,6 +44,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
                 - SelectionTypeID = "shield" > "shield_gen"
             - ##### semiconducting wires
             - ##### small sensor
+                - graphics code
             - ##### transformer
                 - graphics code
             - ##### weapon controller : check if good
