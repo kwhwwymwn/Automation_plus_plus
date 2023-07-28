@@ -1,0 +1,298 @@
+Part : /BASE_PART 
+{
+	NameKey = "Parts/SensorSmall"
+	IconNameKey = "Parts/SensorSmallIcon"
+	ID = jbox1.auto.drone_sensor
+	EditorGroup = "Misc"
+	DescriptionKey = "Parts/SensorSmallDesc"
+	Cost = 5000
+	Size = [2, 1]
+	SelectionPriority = 1
+	MaxHealth = 2000
+	ReceivableBuffs : ^/0/ReceivableBuffs [DroneSensorRange]
+	TypeCategories = [automated]
+	FlipHRotate = [2, 1, 0, 3]
+	FlipVRotate = [0, 3, 2, 1]
+	BlockedTravelCells
+	[
+		[0, 0]
+	]
+	ForceManhattenPathInPart = true
+	AllowedDoorLocations
+	[
+		[1, -1]
+		[2, 0]
+		[1, 1]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 32]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage]
+			Mode = All
+		}
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+
+		BatteryStorage
+		{
+			Type = AmmoStorage
+			AmmoType = battery
+			DrainOnFtlJump = true
+			MaxAmmo = 1000
+		}
+		BatteryConsumer
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			Storage = BatteryStorage
+			DefaultPriority = &/PRIORITIES/Utility_Supply
+			ResupplyThreshold = 500
+			OperationalToggle = PowerToggle
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		PowerDrain
+		{
+			Type = AmmoConverter
+			OperationalToggle = IsOperational
+			FromStorage = BatteryStorage
+			FromQuantity = 50
+			MinFromQuantityForConversion = 1
+			Interval = 1
+		}
+		BuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = DroneSensorRange
+			BuffAmount = 20%
+			GridDistance = 25
+			OperationalToggle = IsOperational
+			ShowBuffRange = true
+		}
+		Sensor
+		{
+			Type = Sensor
+			OperationalToggle = IsOperational
+			SightRadius = {BaseValue = 300; BuffType=DroneSensorRange; BuffMode=Multiply; MaxValue=600}
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			Location = [1, 0.5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"Doodads_on1.png"
+							"Doodads_on2.png"
+							"Doodads_on3.png"
+							"Doodads_on4.png"
+							"Doodads_on5.png"
+							"Doodads_on6.png"
+							"Doodads_on7.png"
+							"Doodads_on8.png"
+							
+						]
+						Size = [2, 1]
+						AnimationInterval = 0.25
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "Doodads_off.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+		}
+		SensorDishGraphics
+		{	
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			Location = [0.5, 0.5]
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"roof_doodads_on1.png"
+							"roof_doodads_on2.png"
+							"roof_doodads_on3.png"
+							"roof_doodads_on4.png"
+							"roof_doodads_on5.png"
+							"roof_doodads_on6.png"
+							"roof_doodads_on7.png"
+							"roof_doodads_on8.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = 0.1
+						RotSpeed = 30d
+					}
+				]
+			}
+			NonOperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						File = "roof_doodads_off.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		BatterySprite
+		{
+			Type = AmmoSprites
+			Location = [1, 0.5]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "battery.png"
+					Size = [2, 1]
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1, 0.5]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+		BlueprintSprite0
+		{
+			File = "blueprints.png"
+			Size = [2, 1]
+			Type=BlueprintSprite
+		}
+	}
+	Stats
+	{
+		PowerUsageContinuous = (&~/Part/Components/PowerDrain/FromQuantity) / (&~/Part/Components/PowerDrain/Interval) / 1000
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxAmmo) / 1000
+		SmallSensorBuff = (&~/Part/Components/BuffProvider/BuffAmount) *100
+		SensorRangeBuff = [(&~/Part/Components/Sensor/SightRadius/BaseValue) ; (&~/Part/Components/Sensor/SightRadius/MaxValue)]
+
+		RecPower = &PowerUsageContinuous
+	}
+}

@@ -1,0 +1,4 @@
+// This is a "fake" type of resource used to check if drones are in wifi range
+ID = wifi
+NameKey = "Ammo/WiFi"
+ReturnToStorage = false

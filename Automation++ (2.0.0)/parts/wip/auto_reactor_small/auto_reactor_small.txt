@@ -1,0 +1,661 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/AutoReactorSmall"
+	IconNameKey = "Parts/AutoReactorSmallIcon"
+	ID = jbox1.auto.auto_reactor_small
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/AutoReactorSmallDesc"
+	Cost = 20000
+	AIValueFactor = 5
+	Size = [2, 2]
+	SelectionPriority = 1
+	SelectionTypeID = "auto_reactor"
+	MaxHealth = 4000
+	TypeCategories = [automated, provides_power, bounty_objective, need_node]
+	RequiresCategories = [node]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoReactorStrength, AutoReactorArea, AutoReactorSupplyPenalty1, AutoReactorAreaPenalty, AutomationEnable, AutoDisable, ApexActivation, FtlActivation, FullSupplyBuff]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [56, 56]
+	}
+	Components : ^/0/Components
+	{
+		// --- CORE CODE GLUE ---
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		ApexActivation
+		{
+			Type = BuffToggle
+			BuffType = ApexActivation
+		}
+		OperationalBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutomationEnable
+		}
+		DisableBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoDisable
+		}
+		IndicatorToggle
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = ApexActivation}
+				{Toggle = OperationalBuffToggle}
+				{Toggle = DisableBuffToggle, invert = true}
+			]
+			Mode = All
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = PowerToggle}
+				{Toggle = IndicatorToggle}
+			]
+			Mode = All
+		}
+		FtlActivation
+		{
+			Type = BuffToggle
+			BuffType = FtlActivation
+		}
+		// ---- AREA MODE CODE GLUE ----
+		AreaBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorArea
+		}
+		AreaOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = IsOperational}
+				{Toggle = AreaBuffToggle}
+				{Toggle = FtlActivation, invert = true}
+			]
+			Mode = All
+		}
+		AreaModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "area"
+			Default = 0
+			OperationalToggle = AreaOperational
+		}
+		AreaCentralComponents
+		{
+			Type = ToggledComponents
+			Toggle = AreaModeToggle
+			Invert = true
+			Components
+			{
+				AreaRepeatingTrigger
+				{
+					Type = Timer
+					OperationalToggle = AreaOperational
+					Duration = 1
+					AutoStart = true
+					Repeats = true
+				}
+				ProgressBar
+				{
+					Type = ProgressBar
+					OperationalToggle = AreaOperational
+					ShowProgressFor = AreaRepeatingTrigger
+					Invert = true
+				}
+				AreaPowerProvider
+				{
+					Type = TriggeredEffects
+					Location = [1, 1]
+					Trigger = AreaRepeatingTrigger
+					HitEffects
+					[
+						{
+							Type = ExplosiveAmmoDrain
+							AmmoType = battery
+							TotalDrain = -3000
+							Radius = { BaseValue=1; BuffType=AutoReactorArea; BuffMode=Multiply }
+							Slices = 1
+							Filter
+							{
+								Ships = true
+								Shields = true
+								Friendlies = true
+								IgnoreInvulnerability = true
+								Enemies = false
+								ExcludePartCategories = [ftl]
+							}
+							MediaEffectsOnDrainFactor = 1
+							MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+						}
+					]
+				}
+			}
+		}
+		
+		AreaDiffuseComponents
+		{
+			Type = ToggledComponents
+			Toggle = AreaModeToggle
+			Components
+			{
+				AreaRepeatingTrigger
+				{
+					Type = Timer
+					OperationalToggle = AreaOperational
+					Duration = {BaseValue = 1; BuffType = AutoReactorStrength; BuffMode = Divide}
+					AutoStart = true
+					Repeats = true
+				}
+				ProgressBar
+				{
+					Type = ProgressBar
+					OperationalToggle = AreaOperational
+					ShowProgressFor = AreaRepeatingTrigger
+					Invert = true
+				}
+				AreaPowerProvider
+				{
+					Type = TriggeredEffects
+					Location = [1, 1]
+					Trigger = AreaRepeatingTrigger
+					HitEffects
+					[
+						{
+							Type = AreaAmmoDrain
+							AmmoType = battery
+							AmountPerPart = { BaseValue=-3000; BuffType=AutoReactorAreaPenalty; BuffMode=Divide }
+							Radius = { BaseValue=1; BuffType=AutoReactorArea; BuffMode=Multiply }
+							Falloff = 0
+							Delay = 0
+							Filter
+							{
+								Ships = true
+								Shields = true
+								Friendlies = true
+								IgnoreInvulnerability = true
+								Enemies = false
+								ExcludePartCategories = [ftl]
+							}
+							MediaEffectsOnDrainFactor = 1
+							MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+						}
+					]
+				}
+			}
+		}
+		// ---- FTL MODE CODE GLUE ----
+		FtlOperational
+		{
+			Type = MultiToggle
+			Toggles = [IsOperational, AreaBuffToggle, FtlActivation]
+			Mode = All
+		}
+		FtlIndicator
+		{
+			Type = MultiToggle
+			Toggles = [FtlOperational]
+			Invert = true
+			Mode = All
+		}
+		FtlRepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = FtlOperational
+			Duration = 1
+			AutoStart = true
+			Repeats = true
+		}
+		FtlProgressBar
+		{
+			Type = ProgressBar
+			ShowProgressFor = FtlRepeatingTrigger
+			OperationalToggle = FtlOperational
+			Invert = true
+		}
+		AreaFtlPowerProvider
+		{
+			Type = TriggeredEffects
+			Location = [1, 1]
+			Trigger = FtlRepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = -2000
+					Radius = { BaseValue=1; BuffType=AutoReactorArea; BuffMode=Multiply }
+					Falloff = 0
+					Delay = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+						OnlyPartCategories = [ftl]
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+				}
+			]
+		}
+		
+		// ---- SUPPLY MODE CODE GLUE ----
+		SupplyOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = IsOperational}
+				{Toggle = AreaBuffToggle, invert = true}
+			]
+			Mode = All
+		}
+		SupplyBuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupply
+			BuffAmount = { BaseValue = 3; BuffType = AutoReactorSupplyPenalty1; BuffMode = Divide }
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = SupplyOperational
+			ShowBuffRange = true
+		}
+		AutoLoaderEfficiency
+		{
+			Type = GridBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = 1 // no bonus, only for displaying the buff amount in blueprint
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = SupplyOperational
+		}
+		SupplyBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = FullSupplyBuff
+		}
+		SupplyBuffOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = SupplyOperational}
+				{Toggle = SupplyBuffToggle}
+			]
+			Mode = All
+		}
+		HiddenComponents
+		{
+			Type = ToggledComponents
+			Toggle = SupplyBuffToggle
+			Components
+			{
+				FullSupplyProvider
+				{
+					Type = GridBuffProvider
+					BuffType = AutoReactorSupply
+					BuffAmount = 1
+					GridDistance = 8
+					AllowDiagonals = true
+					OperationalToggle = SupplyBuffOperational
+				}
+			}
+		}
+		// ---- REST OF THE CODE ----
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational
+			Location = [1, 1]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+						]
+						Size = [2, 2]
+						AnimationInterval = 0.05
+					}
+				]
+			}
+			NonOperationalDoodad = &OperationalDoodad
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"lights1.png"
+							"lights2.png"
+							"lights3.png"
+							"lights4.png"
+							"lights5.png"
+							"lights6.png"
+							"lights7.png"
+							"lights8.png"
+						]
+						Size = [2, 2]
+						AnimationInterval = 0.05
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"roof_doodads1.png"
+							"roof_doodads2.png"
+							"roof_doodads3.png"
+							"roof_doodads4.png"
+							"roof_doodads5.png"
+							"roof_doodads6.png"
+							"roof_doodads7.png"
+							"roof_doodads8.png"
+						]
+						Size = [2, 2]
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			NonOperationalRoofDoodad = &OperationalRoofDoodad
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+		}
+		
+		ReactorHum
+		{
+			Type = ContinuousEffects
+			OperationalToggle = IsOperational
+			Location = [1, 1]
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioInterior
+				{
+					Sound = "operating.wav"
+					Volume = .5
+					Speed = .5
+					MaxConcurrent = 1
+					DynamicVolume : ^/0/DynamicVolume
+					{
+						ExteriorVolume = .5
+					}
+				}
+			]
+		}
+		
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1, 1]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			Location = [1, 1]
+
+			MediaEffects
+			[
+				&<./Data/ships/terran/reactor_small/particles/reactor_explode_small.txt>
+				&<./Data/ships/terran/reactor_small/particles/reactor_explode_flash_small.txt>
+				&<./Data/ships/terran/reactor_small/particles/reactor_shockwave_small.txt>
+				&<./Data/common_effects/particles/explosions/med_part_explode_debris.txt>
+				&<./Data/common_effects/particles/explosions/big_part_explode_smoke.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "destroyed.wav"
+					Volume = 1
+					SpeedVariation = .25
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .25
+					Duration = 2
+				}
+			]
+			
+			HitEffects
+			[
+				{
+					Type = ExplosiveDamage
+					TotalDamage = {BaseValue = 40000; BuffType = AutoReactorStrength; BuffMode = Multiply}
+					Radius = 8
+					Delay = .05
+					ExpandDuration = .1
+					ExpandStartRadius = 2
+					ExpandLoss = 100%
+					FireChancePerNDamage = 50%
+					ImpulsePerNDamage = 10
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = true
+						StructuralHealth = false
+						Friendlies = true
+					}
+				}
+				{
+					Type = ExplosiveDamage
+					TotalDamage = {BaseValue = 10000; BuffType = AutoReactorStrength; BuffMode = Multiply}
+					Radius = 6
+					Delay = .05
+					ExpandDuration = .05
+					ExpandStartRadius = 2
+					ExpandLoss = 100%
+					ImpulsePerNDamage = 5
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = false
+						StructuralHealth = true
+						Friendlies = true
+					}
+				}
+			]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1.5, 1.5]
+					}
+				}
+				//disabled
+				{
+					Toggle = IndicatorToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoControl
+						Size = [1.5, 1.5]
+					}
+				}
+				//ftl activated
+				{
+					Toggle = FtlIndicator
+					AtlasSprite
+					{
+						File = &/INDICATORS/FtlActivated
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 2]
+		}
+	}
+	Stats
+	{
+		PowerGeneration = (&~/Part/Components/AreaCentralComponents/Components/AreaPowerProvider/HitEffects/0/TotalDrain) / (&~/Part/Components/AreaCentralComponents/Components/AreaRepeatingTrigger/Duration) / -1000
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/AutoReactorSupply"
+			Stats
+			{
+				SupplyRange = &~/Part/Components/SupplyBuffProvider/GridDistance
+				SupplyPower = &~/Part/Components/SupplyBuffProvider/BuffAmount/BaseValue
+			}
+		}
+		{
+			NameKey = "StatCategories/AutoReactorAreaCentral"
+			Stats
+			{
+				PowerGeneration = (&~/Part/Components/AreaCentralComponents/Components/AreaPowerProvider/HitEffects/0/TotalDrain) / (&~/Part/Components/AreaCentralComponents/Components/AreaRepeatingTrigger/Duration) / -1000
+				Frequency = 1/(&~/Part/Components/AreaCentralComponents/Components/AreaRepeatingTrigger/Duration)
+			}
+		}
+		{
+			NameKey = "StatCategories/AutoReactorAreaDiffuse"
+			Stats
+			{
+				DiffusePower6
+				[
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 20 / -1000
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 40 / -1000
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 60 / -1000
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 80 / -1000
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 100 / -1000
+					(&~/Part/Components/AreaDiffuseComponents/Components/AreaPowerProvider/HitEffects/0/AmountPerPart/BaseValue) / 120 / -1000
+				]
+				FrequencyBuff = [1, 4.5]
+			}
+		}
+		{
+			NameKey = "StatCategories/FtlLoader"
+			Stats
+			{
+				FtlPowerLoader = (&~/Part/Components/AreaFtlPowerProvider/HitEffects/0/AmountPerPart) / -1000
+			}
+		}
+	]
+	StatsNotesKey = "Stats/AutoReactorNotes"
+}

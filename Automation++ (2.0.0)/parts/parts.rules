@@ -1,0 +1,64 @@
+Parts
+[
+	//basic
+//	&<internal_structure/internal_structure.txt>/Part
+	
+	//auto reactors, add-ons, and wires
+//	&<auto_reactor_small/auto_reactor_small.txt>/Part
+//	&<auto_reactor_med/auto_reactor_med.txt>/Part
+//	&<auto_reactor_large/auto_reactor_large.txt>/Part
+//	&<console/console.txt>/Part
+//	&<transformer/transformer.txt>/Part
+//	&<circuit_breaker/circuit_breaker.txt>/Part
+//	&<capacitor/capacitor.txt>/Part
+//	&<coupling_wires/coupling_wire.txt>/Part
+//	&<coupling_wires/coupling_wire_elbow.txt>/Part
+//	&<coupling_wires/coupling_wire_tee.txt>/Part
+//	&<coupling_wires/coupling_wire_cross.txt>/Part
+//	&<semiconducting_wire/semiconducting_wire.txt>/Part
+//	&<semiconducting_wire/superconducting_wire.txt>/Part
+//	&<ammo_belt/ammo_belt.txt>/Part
+	
+	//auto loaders
+//	&<auto_loader_small/auto_loader_small.txt>/Part
+//	&<auto_loader_med/auto_loader_med.txt>/Part
+//	&<auto_loader_adv/auto_loader_adv.txt>/Part
+//	&<auto_loader_compact/auto_loader_compact.txt>/Part
+//	&<auto_loader_ammo/auto_loader_ammo.txt>/Part
+//	&<auto_loader_missile_he/auto_loader_missile_he.txt>/Part
+//	&<auto_loader_missile_he_new/auto_loader_missile_he_L.txt>/Part
+//	&<auto_loader_missile_he_new/auto_loader_missile_he_R.txt>/Part
+//	&<auto_loader_missile_emp/auto_loader_missile_emp.txt>/Part
+//	&<auto_loader_missile_emp_new/auto_loader_missile_emp.txt>/Part
+//	&<auto_loader_missile_nuke/auto_loader_missile_nuke.txt>/Part
+//	&<auto_loader_missile_nuke_new/auto_loader_missile_nuke.txt>/Part
+//	&<auto_loader_mine/auto_loader_mine.txt>/Part
+//	&<auto_loader_mine_new/auto_loader_mine.txt>/Part
+//	&<auto_loader_fuel/auto_loader_fuel.txt>/Part
+	
+	//drones and stuff for drones
+//	&<drone_core_small/drone_core_small.txt>/Part
+//	&<drone_core_large/drone_core_large.txt>/Part
+//	&<nodes/apex_node.txt>/Part
+//	&<nodes/apex_node_offense.txt>/Part
+//	&<nodes/apex_node_power.txt>/Part
+//	&<nodes/apex_node_scout.txt>/Part
+//	&<drone_core_autonomous/drone_core_autonomous.txt>/Part
+//	&<drone_controller/drone_controller.txt>/Part
+//	&<ai_mainframe/ai_mainframe.txt>/Part
+	
+	//ftl
+//	&<drone_ftl_drive/drone_ftl_drive.txt>/Part
+//	&<ftl_resonator/ftl_resonator.txt>/Part
+	
+	//misc
+//	&<sensor_small/sensor.txt>/Part
+//	&<lantern/lantern.txt>/Part
+	
+	//weapons and defenses
+//	&<auto_gun/auto_gun.txt>/Part
+//	&<auto_laser/auto_laser.txt>/Part
+//	&<auto_rifle/auto_rifle.txt>/Part
+	&<weapon_controller/weapon_controller.txt>/Part
+//	&<scout_shield/scout_shield.txt>/Part
+]

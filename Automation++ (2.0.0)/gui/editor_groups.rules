@@ -1,0 +1,29 @@
+Drones
+{
+	NameKey = "EditorGroups/Drones"
+	Icon
+	{
+		Texture
+		{
+			File = "group_drones.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+	}
+	SortOrder = 450
+}
+
+AutoPower
+{
+	NameKey = "EditorGroups/AutoPower"
+	Icon
+	{
+		Texture
+		{
+			File = "group_power.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+	}
+	SortOrder = 601
+}

@@ -1,0 +1,310 @@
+AutoReactorSupply
+{
+	CombineMode = Add
+	BaseValue = 0
+	MaxValue = 1
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+FullSupplyBuff
+{
+	CombineMode = Max
+}
+AutoReactorSupplyPenalty1
+{
+	CombineMode = Add
+	BaseValue = 0
+}
+AutoReactorSupplyPenalty2
+{
+	CombineMode = Add
+	BaseValue = 0
+}
+AutoReactorSupplyPenalty3
+{
+	CombineMode = Add
+	BaseValue = 0
+}
+AutoReactorAreaPenalty
+{
+	CombineMode = Add
+	BaseValue = 0
+}
+AutoReactorArea
+{
+	CombineMode = Add
+	BaseValue = 0
+	Exponent = 0.5
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_area.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	IconTextFormatKey = "BuildBox/BuffRangeFmt"
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AutoReactorStrength
+{
+	CombineMode = Add
+	BaseValue = 100%
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_power_strength.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AmmoLoaderEfficiency //for missiles too
+{
+	CombineMode = Add
+	BaseValue = 100%
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+PowerLoaderEfficiency
+{
+	CombineMode = Add
+	BaseValue = 100%
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AutoLoaderEfficiency 
+{
+	CombineMode = Multiply
+	
+	IconTextFormatKey = "BuildBox/BuffRatioFmt"
+	IconTextMultiply = 100
+}
+DronePower
+{
+	CombineMode = Add
+	BaseValue = 100%
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_power_strength.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+DroneControllerRange
+{
+	CombineMode = Add
+	BaseValue = 100%
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_area.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+EngineBuff
+{
+	CombineMode = Max
+	BaseValue = 0
+
+	Icon
+	{
+		Texture
+		{
+			File = "./Data/buffs/buff_engine.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+ApexActivation
+{
+	CombineMode = Max
+}
+FtlActivation
+{
+	CombineMode = Max
+}
+FtlJumpActivation
+{
+	CombineMode = Max
+}
+AutomationEnable
+{
+	CombineMode = Max
+	
+	Icon
+	{
+		Texture
+		{
+			File = "buff_enable.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+WeaponControlEnable
+{
+	CombineMode = Max
+	
+	Icon
+	{
+		Texture
+		{
+			File = "buff_enable.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AutoWeaponsEnable
+{
+	CombineMode = Max
+	Icon
+	{
+		Texture
+		{
+			File = "buff_enable.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AutoWeaponRange
+{
+	CombineMode = Add
+	BaseValue = 100%
+	Icon
+	{
+		Texture
+		{
+			File = "buff_weapon_range.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+	
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}
+AutoGunAccuracy
+{
+	CombineMode = Min
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_accuracy.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	
+	IconTextFormatKey = "BuildBox/BuffRatioFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+	
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+	
+}
+AutoDisable
+{
+	CombineMode = Max
+	Icon
+	{
+		Texture
+		{
+			File = &/INDICATORS/PowerOff
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [2, 2]
+	}
+	RectBorderColor = [255, 0, 0, 160]
+	RectFillColor = [255, 0, 0, 64]
+}
+DroneSensorRange
+{
+	CombineMode = Add
+	BaseValue = 100%
+	Maxvalue = 200%
+
+	Icon
+	{
+		Texture
+		{
+			File = "buff_area.png"
+			MipLevels = 2
+			SampleMode = Linear
+		}
+		Size = [1, 1]
+	}
+	IconTextFormatKey = "BuildBox/BuffPercentageFmt"
+	IconTextMultiply = 100
+	IconTextAdd = -100
+
+	RectBorderColor = [0, 255, 84, 160]
+	RectFillColor = [0, 255, 84, 64]
+}

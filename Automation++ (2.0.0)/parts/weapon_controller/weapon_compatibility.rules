@@ -1,0 +1,716 @@
+Actions
+[
+	// Laser Blaster
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 1
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[.5, 2.27]
+				]
+				CrewLocations
+				[
+					CrewLocation
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_small/laser_blaster_small.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/0/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Heavy Laser Blaster
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 2
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[.65625, 4.27]
+					[1.34375, 4.27]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_large/laser_blaster_large.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/3/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Standard Cannon
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_med/cannon_med.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 1
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [AmmoPrereq, PowerToggle]
+				CrewDestinations
+				[
+					[1.375, 1.25]
+				]
+				CrewLocations
+				[
+					CrewLocation
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/cannon_med/cannon_med.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_med/cannon_med.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/6/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Large Cannon
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_large/cannon_large.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 2
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [AmmoPrereq, PowerToggle]
+				CrewDestinations
+				[
+					[.95, 1.4]
+					[2.1, 1.4]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/cannon_large/cannon_large.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_large/cannon_large.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/9/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Deck Cannon
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 4
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [AmmoPrereq]
+				CrewDestinations
+				[
+					[89/64, 110/64]
+					[166/64, 110/64]
+					[67/64, 189/64]
+					[189/64, 189/64]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+					CrewLocation3
+					CrewLocation4
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_deck/cannon_deck.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/12/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Disruptor
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/disruptor/disruptor.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 1
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[.5, 3.27]
+				]
+				CrewLocations
+				[
+					CrewLocation
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/disruptor/disruptor.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/disruptor/disruptor.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/15/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Ion Beam
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 2
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[.65, 4.27]
+					[1.35, 4.27]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/ion_beam_emitter/ion_beam_emitter.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/18/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Missile Launcher
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 2
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [MissilesPrereqProxy]
+				CrewDestinations
+				[
+					[ .5, 3.44]
+					[1.5, 3.44]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/missile_launcher/missile_launcher.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/21/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Railgun
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 2
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [AmmoPrereq]
+				CrewDestinations
+				[
+					[.48, 1.5625]
+					[1.52, 1.5625]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/railgun_loader/railgun_loader.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/24/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Flak
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 3
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [AmmoPrereq]
+				CrewDestinations
+				[
+					[1.5, 4.001]
+					[.6, 5.4]
+					[2.4, 5.4]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+					CrewLocation3
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/flak_cannon_large/flak_cannon_large.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/27/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Mining Laser
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 1
+				DefaultPriority = &<./Data/ships/base_ship.rules>/DefaultSalvagePriority
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[1, 0.68]
+				]
+				CrewLocations
+				[
+					CrewLocation
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/mining_laser_small/mining_laser_small.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/30/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Resource Collector
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/resource_collector/resource_collector.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			RealPartCrew1
+			{
+				Type = PartCrew
+				Crew = 1
+				DefaultPriority = &/PRIORITIES/ResourceCollector_Crew
+				PrerequisitesBeforeCrewing = [PartCrew1Prereq]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations [ [41/64, 41/64] ]
+				CrewLocations [ CrewLocation1 ]
+				OverridePriorityKey = PartCrew // All PartCrew components should share the same priority.
+			}
+			RealPartCrew2 : RealPartCrew1
+			{
+				PrerequisitesBeforeCrewing = [PartCrew2Prereq]
+				CrewDestinations [ [87/64, 41/64] ]
+				CrewLocations [ CrewLocation2 ]
+			}
+			RealPartCrew3 : RealPartCrew1
+			{
+				PrerequisitesBeforeCrewing = [PartCrew3Prereq]
+				CrewDestinations [ [41/64, 87/64] ]
+				CrewLocations [ CrewLocation3 ]
+			}
+			RealPartCrew4 : RealPartCrew1
+			{
+				PrerequisitesBeforeCrewing = [PartCrew4Prereq]
+				CrewDestinations [ [87/64, 87/64] ]
+				CrewLocations [ CrewLocation4 ]
+			}
+			
+			PartCrew1
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew1]
+				Mode = Any
+			}
+			PartCrew2
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew2]
+				Mode = Any
+			}
+			PartCrew3
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew3]
+				Mode = Any
+			}
+			PartCrew4
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew4]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/resource_collector/resource_collector.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/resource_collector/resource_collector.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/33/Overrides/RealPartCrew1/Crew
+		}
+	}
+
+	// Tractor Beam
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 4
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[82/64, 82/64]
+					[238/64, 82/64]
+					[238/64, 238/64]
+					[82/64, 238/64]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+					CrewLocation3
+					CrewLocation4
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/36/Overrides/RealPartCrew/Crew
+		}
+	}	
+]

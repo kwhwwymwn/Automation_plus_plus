@@ -1,11 +1,10 @@
 # Automation++
 a mod for Cosmoteer
 
-### Version 1.3.1 for Cosmoteer 0.15.17
-This is the last classic version of the mod
-It is not compatible with the modern versions of Cosmoteer
+### Version 2.0.0 for Cosmoteer 0.23.1
 
 
-[More informations and previous versions available on the Cosmoteer forum](https://forum.cosmoteer.net/d/12348-automation-1-3-1-power-reloaded)
+This is a modern version of the mod
+[Classic versions are available on the Cosmoteer forum](https://forum.cosmoteer.net/d/12348-automation-1-3-1-power-reloaded)
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.

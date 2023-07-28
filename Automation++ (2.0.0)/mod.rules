@@ -1,0 +1,375 @@
+ID = "jbox1.automation_plus_plus"
+Name = "Automation ++"
+Version = "2.0.0"
+CompatibleGameVersions = ["0.23.1"]
+ModifiesMultiplayer = true
+Author = "jbox1, Namek, CdRMoteer, kwhwwymwn"
+
+Description = "<b><s24><good>Why do all the work when automation can do it for you?</good></s24></b>\n"\
+				"Automation ++ adds in all the essentials for automating your ships, with automated reactor cores, drone cores, auto. loaders and much more! Featuring many different and unique parts and mechanics, all vanilla balanced and perfect for bounty hunter!\n\n"\
+				"<b><s20>Credits</s20></b>\n"\
+				"<b><good>jbox1</good></b>: Designer, Programmer, Concept\n"\
+				"<b><good>Namek</good></b>: Artist, Support\n"\
+				"<b><good>CdRMoteer</good></b>: Programmer, Updater\n"\
+				"<b><good>kwhwwymwn</good></b>: Programmer, Updater, New Designer\n\n"\
+				"<b>Bubbet</b>: Original Concepts\n"\
+				"<b>Jesus3747</b>: AI Module Art\n"\
+				"<b>Chank</b>: Weapon Controller Art\n"\
+				"<b>ZyerFire</b>: Support\n\n"\
+				"<b><good>MacGhriogar</good></b>: Spreading the word of Automation ++\n\n"\
+				"Special thanks to <b><good>Walt</good></b> for implementing requested feature to the base game and <b><good>Kroom</good></b> for sharing sprites, easing the reproduction of his art style\n\n"\
+				"As well as all my alpha testers, supporters and users of Drones ++ and Automation ++!"
+				
+StringsFolder = "strings"
+Logo = "gui/icon.png" // redo logo
+
+Actions : &<parts/weapon_controller/weapon_compatibility.rules>/Actions // Weapon Controller Code Glue // check if good
+[
+	// Buffs
+	{
+		// add parts using buff then check if good
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.rules>"
+		Overrides = &<buffs/buffs.rules>
+	}
+	// Editor Groups
+	{
+		// add parts in categories then check if good
+		Action = Overrides
+		OverrideIn = "<gui/game/designer/editor_groups.rules>"
+		Overrides = &<gui/editor_groups.rules>
+		// separate parts into more categories
+	}
+	// Stats
+	{
+		// add parts then check if good
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_stats.rules>/PartStats"
+		ManyToAdd = &<gui/part_stats.rules>/PartStats
+	}
+	// Indicators
+	{
+		// redo sprites then check if good
+		Action = Overrides
+		OverrideIn = "<gui/game/indicators/indicators.rules>"
+		Overrides
+		{
+			NoWifi = "gui/wifi_indicator.png"
+			NoControl = "gui/control_indicator.png"
+			FtlActivated = "gui/ftl_indicator.png"
+		}
+	}
+	// Resources
+	{
+		// add parts using wifi then check if good
+		Action = AddMany
+		AddTo = "<resources/resources.rules>/Resources"
+		ManyToAdd
+		[
+			&<resources/wifi.rules>
+		]
+	}
+	// Toggles and Triggers
+		// add nodes and auto reactor then check if good
+	{
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_toggles.rules>/PartToggles"
+		ManyToAdd = &<gui/part_toggles.rules>/PartToggles
+	}
+	{
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_triggers.rules>/PartTriggers"
+		ManyToAdd = &<gui/part_triggers.rules>/PartTriggers
+	}
+	// Tell the AI to press the UI triggers (it's not perfect but it work)
+	// Parts
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/terran.rules>/Terran/Parts"
+		ManyToAdd = &<parts/parts.rules>/Parts
+	}
+	// For balance reason, shield is shield
+		// check if good
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/shield_gen_small/shield_gen_small.rules>/Part/TypeCategories"
+		ManyToAdd = [shield]
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/shield_gen_large/shield_gen_large.rules>/Part/TypeCategories"
+		ManyToAdd = [shield]
+	}
+	// Sensor Array Buff
+	{
+		Action = Add
+		AddTo = "<ships/terran/sensor_array/sensor_array.rules>/Part/Components"
+		Name = "DroneControllerRangeBuffProvider"
+		ToAdd
+		{
+			Type = GridBuffProvider
+			BuffType = DroneControllerRange
+			BuffAmount = 50%
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+	}
+	// Ftl components for fixing bugs
+	// you can't use the autonomous drone core with other drone cores
+		// check if good
+	{
+		Action = AddMany
+		CreateIfNotExisting = true
+		AddTo = "<ships/terran/terran.rules>/Terran/CategoryLimits"
+		ManyToAdd 
+		[
+			{Category = apex_node; Max = 1}
+		]
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/terran.rules>/Terran/CategoryNouns"
+		ManyToAdd 
+		[
+			{Category = apex_node; SingularKey="CategoryNouns/apex_nodeSingular"; PluralKey="CategoryNouns/apex_nodePlural"}
+		]
+	}
+	// Logo Ship
+	{
+		// add all parts then check if good
+		Action = Overrides
+		OverrideIn = "<gui/menus.rules>"
+		Overrides
+		{
+			LogoShip = "ships/logo.ship.png"
+		}
+		// redo logo ship
+	}
+	// Decals
+	{
+		// check if good
+		Action = Add
+		AddTo = "<roof_decals/roof_decals.rules>/Groups/2/Folders"
+		ToAdd = "roof_decals/text_small"
+	}
+	{
+		// make big plus then check if good
+		Action = Add
+		AddTo = "<roof_decals/roof_decals.rules>/Groups/3/Folders"
+		ToAdd = "roof_decals/text_large"
+	}
+]
+
+
+// delete once everything good
+/*
+Actions : &<parts/weapon_controller/weapon_components.txt>/Actions // Weapon Controller Code Glue
+&<parts/weapon_controller/weapon_stats.txt>/Actions // Updated Stats
+[
+	// Buffs
+	{
+		Action = Overrides
+		OverrideIn = "<buffs/buffs.txt>"
+		Overrides = &<buffs/buffs.txt>
+	}
+	// Editor Groups
+	{
+		Action = Overrides
+		OverrideIn = "<gui/game/designer/editor_groups.txt>"
+		Overrides = &<gui/editor_groups.txt>
+	
+	}
+	// Stats
+	{
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_stats.txt>/PartStats"
+		ManyToAdd = &<gui/part_stats.txt>/PartStats
+	}
+	// Indicators. 
+	{
+		Action = Overrides
+		OverrideIn = "<gui/game/indicators/indicators.txt>"
+		Overrides
+		{
+			NoWifi = "gui/wifi_indicator.png"
+			NoControl = "gui/control_indicator.png"
+			FtlActivated = "gui/ftl_indicator.png"
+		}
+	}
+	// Ammo
+	{
+		Action = AddMany
+		AddTo = "<ammo/ammo.txt>/Ammo"
+		ManyToAdd
+		[
+			{
+				ID = wifi
+				NameKey = "Ammo/WiFi"
+			}
+		]
+	}
+	// Toggles and Triggers
+	{
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_toggles.txt>/PartToggles"
+		ManyToAdd = &<gui/part_toggles.txt>/PartToggles
+	}
+	{
+		Action = AddMany
+		AddTo = "<gui/game/parts/part_triggers.txt>/PartTriggers"
+		ManyToAdd = &<gui/part_triggers.txt>/PartTriggers
+	}
+	// Tell the AI to press the UI triggers (it's not perfect but it work)
+	{
+		Action = AddMany
+		CreateIfNotExisting = true
+		AddTo = "<ai/ai.txt>/BountyBrainHard/UITriggerConditions"
+		ManyToAdd
+		[
+			{
+				TriggerID = "node_sensor"
+				Condition = "? True"
+			}
+			{
+				TriggerID = "node_speed_buff"
+				Condition = "? ship.TargetShip != None and ship.Location.DistanceTo(ship.Destination) > (ship.Radius * 2)"\
+							" and (ship.DestinationRotation == None or ship.Rotation.AngularDistanceTo(ship.DestinationRotation).ToDegrees() < 5)"
+			}
+			{
+				TriggerID = "node_power_supply"
+				Condition = "? True"
+			}
+		]
+	}
+	// Parts
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/terran.txt>/Terran/Parts"
+		ManyToAdd = &<parts/parts.txt>/Parts
+	}
+	// For balance reason, shield is shield
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/shield_gen_small/shield_gen_small.txt>/Part/TypeCategories"
+		ManyToAdd = [shield]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/shield_gen_small/shield_gen_small.txt>/Part"
+		Overrides
+		{
+			SelectionTypeID = "shield"
+		}
+	}
+	// Sensor Array Buff
+	{
+		Action = Add
+		AddTo = "<ships/terran/sensor_array/sensor_array.txt>/Part/Components"
+		Name = "DroneControllerRangeBuffProvider"
+		ToAdd
+		{
+			Type = GridBuffProvider
+			BuffType = DroneControllerRange
+			BuffAmount = 50%
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+	}
+	// Ftl components for fixing bugs
+	{
+		Action = Add
+		AddTo = "<ships/terran/ftl_drive/ftl_drive.txt>/Part/Components"
+		Name = "FtlActivationBuff"
+		ToAdd
+		{
+			Type = GridBuffProvider
+			BuffType = FtlActivation
+			BuffAmount = -1
+			GridDistance = &<secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = FtlDrive
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/ftl_drive/ftl_drive.txt>/Part/Components"
+		Name = "FtlThresholdToggle"
+		ToAdd
+		{
+			Type = ThresholdToggle
+			AmountFrom = BatteryStorage
+            MinAmount = 1
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/ftl_drive/ftl_drive.txt>/Part/Components"
+		Name = "FtlJumpActivationBuff"
+		ToAdd
+		{
+			Type = GridBuffProvider
+			BuffType = FtlJumpActivation
+			BuffAmount = -1
+			GridDistance = &<secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = FtlThresholdToggle
+		}
+	}
+	{
+		Action = Add
+		AddTo = "<ships/terran/ftl_drive/ftl_drive.txt>/Part/Components"
+		Name = "PowerDrain"
+		ToAdd
+		{
+			Type = AmmoConverter
+			OperationalToggle = FtlDrive
+			InvertOperationalToggle = true
+			FromStorage = BatteryStorage
+			FromQuantity = 20000
+			MinFromQuantityForConversion = 0
+			Interval = 1/30
+		}
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/ftl_drive/ftl_drive.txt>/Part"
+		Overrides
+		{
+			SelectionTypeID = "ftl"
+		}
+	}
+	// you can't use the autonomous drone core with other drone cores
+	{
+		Action = AddMany
+		CreateIfNotExisting = true
+		AddTo = "<./Data/ships/terran/terran.txt>/Terran/CategoryLimits"
+		ManyToAdd 
+		[
+			{Category = apex_node; Max = 1}
+		]
+	}
+	{
+		Action = AddMany
+		AddTo = "<./Data/ships/terran/terran.txt>/Terran/CategoryNouns"
+		ManyToAdd 
+		[
+			{Category = apex_node; SingularKey="CategoryNouns/apex_nodeSingular"; PluralKey="CategoryNouns/apex_nodePlural"}
+		]
+	}
+	// Logo Ship
+	{
+		Action = Overrides
+		OverrideIn = "<gui/menus.txt>"
+		Overrides
+		{
+			LogoShip = "ships/logo.ship.png"
+		}
+	}
+	// Decals
+	{
+		Action = Add
+		AddTo = "<ships/terran/terran.txt>/Terran/Roofs/RoofDecalsFolders"
+		ToAdd = "roof_decals"
+	}
+]
+*/
