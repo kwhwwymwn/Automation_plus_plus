@@ -1,0 +1,40 @@
+PartToggles
+[
+	// Area mode Central/Diffuse
+	{
+		ToggleID = "area"
+		Style = CycledButton
+		Choices
+		[
+			// Central
+			{
+				ChoiceID = "area_diffuse_off"
+				ButtonToolTipKey = "PartToggles/Area_Central"
+				ButtonSprite
+				{
+					Texture
+					{
+						File = "area_central.png"
+						MipLevels = 2
+						SampleMode = Linear
+					}
+				}
+			}
+
+			// diffuse
+			{
+				ChoiceID = "area_diffuse_on"
+				ButtonToolTipKey = "PartToggles/Area_Diffuse"
+				ButtonSprite
+				{
+					Texture
+					{
+						File = "area_diffuse.png"
+						MipLevels = 2
+						SampleMode = Linear
+					}
+				}
+			}
+		]
+	}
+]

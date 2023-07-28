@@ -1,0 +1,417 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/MineAutoLoader"
+	IconNameKey = "Parts/MineAutoLoaderIcon"
+	ID = jbox1.auto.mine_auto_loader_new
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/MineAutoLoaderSingularDesc"
+	Cost = 15000
+	Size = [3, 2]
+	MaxHealth = 6000
+	SelectionPriority = 1
+	TypeCategories = [provides_mines, automated, autoloader]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoReactorSupply, FtlActivation, AmmoLoaderEfficiency, AutoLoaderEfficiency]
+	CrewSpeedFactor = 0
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 42.66]
+	}
+	Components : ^/0/Components
+	{
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		SupplyBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		FtlActivation
+		{
+			Type = BuffToggle
+			BuffType = FtlActivation
+		}
+		IndicatorOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = PowerToggle}
+				{Toggle = FtlActivation, invert = true}
+			]
+			Mode = All
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [IndicatorOperational, SupplyBuffToggle]
+			Mode = All
+		}
+		SelfBuffProviderReactor
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 0 ; BuffType = AutoReactorSupply ; BuffMode = Add}
+			OperationalToggle = SupplyBuffToggle //prevent the timer from being stuck on infinity
+		}
+		SelfBuffProviderNode
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 1 ; BuffType = AmmoLoaderEfficiency ; BuffMode = Multiply}
+		}
+		RepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = IsOperational
+			Duration = {BaseValue = 3 ; BuffType = AutoLoaderEfficiency ; BuffMode = Divide}
+			AutoStart = true
+			Repeats = true
+		}
+		DelayedTrigger
+		{
+            Type = DelayTrigger
+            Trigger = RepeatingTrigger
+            Delay = 2.5 //time needed for animation
+        }
+		ProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = RepeatingTrigger
+			Invert = true
+		}
+		MineProvider
+		{
+			Type = TriggeredEffects
+			Location = [1.5, 2.5]
+			Trigger = DelayedTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = mine
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/MissileLoad
+				}
+			]
+		}
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 1.5
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 1.5
+			GridDistance = 12
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 1.5
+			GridDistance = 16
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		
+		Graphics
+		{
+			Type = Graphics
+			Location = [1.5, 1]
+			OperationalToggle = IsOperational
+			//AnimationToggle = IsOperational
+			ResetAnimationTrigger = RepeatingTrigger
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [3, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [3, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							//"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on1.png" // Loop back to beginning and clamp there.
+						]
+						Size = [3, 2]
+						AnimationInterval = 0.1
+						AnimationStartTime = MinValue
+						ClampAnimation = true
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [3, 2]
+					}
+					{
+						File = "walls_33.png"
+						Size = [3, 2]
+					}
+					{
+						File = "walls_66.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "light.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [3, 2]
+					}
+					{
+						File = "roof_33.png"
+						Size = [3, 2]
+					}
+					{
+						File = "roof_66.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [3, 2]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [3, 2]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [3, 2]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+		AnimationSprite
+		{
+			Type = Sprite
+			Location = [1.5, 1]
+			Layer = "doodads_low"
+			OperationalToggle = IsOperational
+			ResetAnimationTrigger = RepeatingTrigger
+			AtlasSprite
+			{
+				AnimationFiles
+				[
+					"mine25.png"
+					"mine50.png"
+					"mine75.png"
+					"mine.png"
+					"void.png" // Loop back to beginning and clamp there.
+				]
+				Size = [3, 2]
+				AnimationInterval = 0.6
+				AnimationStartTime = MinValue
+				ClampAnimation = true
+			}
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1.5, 1]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1.5, 1]
+			
+			
+			HitEffects
+			[
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 15000
+					Radius = 5
+					Delay = .05
+					FireChancePerNDamage = 100%
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = true
+						StructuralHealth = false
+						Friendlies = true
+					}
+				}
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 5000
+					Radius = 4
+					Delay = .05
+					Filter
+					{
+						OperationalHealth = false
+						StructuralHealth = true
+						Friendlies = true
+					}
+				}
+			]
+		}
+		
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1.5, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = IndicatorOperational
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = SupplyBuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+		
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [3, 2]
+		}
+	}
+	Stats
+	{
+		MineProduction = (&~/Part/StatsByCategory/0/Stats/MineLoader/0) * (&~/Part/StatsByCategory/0/Stats/MineLoader/1)
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/MineLoader"
+			Stats
+			{
+				SupplyPowerUse = &~/Part/Components/BuffProvider1/BuffAmount
+				MineLoader = [-(&~/Part/Components/MineProvider/HitEffects/0/AmountPerPart) / (&~/Part/Components/RepeatingTrigger/Duration/BaseValue) , 1]
+				Frequency = 1/(&~/Part/Components/RepeatingTrigger/Duration/BaseValue)
+			}
+		}
+	]
+}

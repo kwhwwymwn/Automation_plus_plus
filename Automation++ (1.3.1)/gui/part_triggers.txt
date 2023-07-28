@@ -1,0 +1,45 @@
+PartTriggers
+[
+	{
+		TriggerID = "node_sensor"
+		ShowWithShipCommands = true
+		ButtonToolTipKey = "PartTriggers/Sensor"
+		ButtonSprite
+		{
+			Texture
+			{
+				File = "activate_sensor.png"
+				MipLevels = 2
+				SampleMode = Linear
+			}
+		}
+	}
+	{
+		TriggerID = "node_speed_buff"
+		ShowWithShipCommands = true
+		ButtonToolTipKey = "PartTriggers/Speed"
+		ButtonSprite
+		{
+			Texture
+			{
+				File = "boost_speed.png"
+				MipLevels = 2
+				SampleMode = Linear
+			}
+		}
+	}
+	{
+		TriggerID = "node_power_supply"
+		ShowWithShipCommands = true
+		ButtonToolTipKey = "PartTriggers/Power"
+		ButtonSprite
+		{
+			Texture
+			{
+				File = "boost_power.png"
+				MipLevels = 2
+				SampleMode = Linear
+			}
+		}
+	}
+]

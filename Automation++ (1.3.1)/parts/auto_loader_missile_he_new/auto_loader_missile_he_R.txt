@@ -1,0 +1,370 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/MissileAutoLoaderHeR"
+	IconNameKey = "Parts/MissileAutoLoaderHeRIcon"
+	ID = jbox1.auto.missile_auto_loader_he_R
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/MissileAutoLoaderHeSingularDesc"
+	Cost = 10000
+	Size = [3, 1]
+	MaxHealth = 3000
+	SelectionPriority = 1
+	UsePartWhenFlipped = jbox1.auto.missile_auto_loader_he_L
+	TypeCategories = [provides_missiles, automated, autoloader]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoReactorSupply, FtlActivation, AmmoLoaderEfficiency, AutoLoaderEfficiency]
+	CrewSpeedFactor = 0
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 21.33]
+	}
+	Components : ^/0/Components
+	{
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		SupplyBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		FtlActivation
+		{
+			Type = BuffToggle
+			BuffType = FtlActivation
+		}
+		IndicatorOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = PowerToggle}
+				{Toggle = FtlActivation, invert = true}
+			]
+			Mode = All
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [IndicatorOperational, SupplyBuffToggle]
+			Mode = All
+		}
+		SelfBuffProviderReactor
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 0 ; BuffType = AutoReactorSupply ; BuffMode = Add}
+			OperationalToggle = SupplyBuffToggle //prevent the timer from being stuck on infinity
+		}
+		SelfBuffProviderNode
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 1 ; BuffType = AmmoLoaderEfficiency ; BuffMode = Multiply}
+		}
+		RepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = IsOperational
+			Duration = {BaseValue = 0.5 ; BuffType = AutoLoaderEfficiency ; BuffMode = Divide}
+			AutoStart = true
+			Repeats = true
+		}
+		ProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = RepeatingTrigger
+			Invert = true
+		}
+		HEProvider
+		{
+			Type = TriggeredEffects
+			Location = [2.5, 1.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = missile_part_he
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/MissileLoad
+				}
+			]
+		}
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 1
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 1
+			GridDistance = 12
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 1
+			GridDistance = 16
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		
+		Graphics
+		{
+			Type = Graphics
+			Location = [1.5, 0.5]
+			OperationalToggle = IsOperational
+			AnimationToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [3, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [3, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							// doodads_on1.png
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on1.png"
+						]
+						Size = [3, 1]
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [3, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [3, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [3, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [3, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [3, 1]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [3, 1]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [3, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1.5, 0.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/BigPartDestroyed
+			Location = [1.5, 0.5]
+			
+			HitEffects
+			[
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 20000
+					Radius = 5
+					Delay = .05
+					FireChancePerNDamage = 75%
+					NDamage = 1000
+					Filter
+					{
+						OperationalHealth = true
+						StructuralHealth = false
+						Friendlies = true
+					}
+				}
+				{
+					Type = ExplosiveDamage
+					TotalDamage = 7000
+					Radius = 4
+					Delay = .05
+					Filter
+					{
+						OperationalHealth = false
+						StructuralHealth = true
+						Friendlies = true
+					}
+				}
+			]
+		}
+		
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1.5, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = IndicatorOperational
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = SupplyBuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+		
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [3, 1]
+		}
+	}
+	Stats
+	{
+		HEProduction = (&~/Part/StatsByCategory/0/Stats/MissileLoader/0) * (&~/Part/StatsByCategory/0/Stats/MissileLoader/1) //used by the missile stats mod
+		MissileProduction = (&HEProduction) /4
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/MissileLoader"
+			Stats
+			{
+				SupplyPowerUse = &~/Part/Components/BuffProvider1/BuffAmount
+				MissileLoader = [-(&~/Part/Components/HEProvider/HitEffects/0/AmountPerPart) / (&~/Part/Components/RepeatingTrigger/Duration/BaseValue) , 1]
+				Frequency = 1/(&~/Part/Components/RepeatingTrigger/Duration/BaseValue)
+			}
+		}
+	]
+}

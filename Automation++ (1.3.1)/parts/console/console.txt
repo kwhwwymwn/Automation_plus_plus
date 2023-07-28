@@ -1,0 +1,401 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/Console"
+	IconNameKey = "Parts/ConsoleIcon"
+	ID = jbox1.auto.console
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/ConsoleDesc"
+	Cost = 8000
+	AIValueFactor = 5
+	Size = [2, 3]
+	MaxHealth = 6000
+	TypeCategories = [buff_provider, power, need_node]
+	RequiresCategories = [node]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoDisable, ApexActivation]
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[2, 1]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [42.66, 64]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = BatteryStorage}
+				{Toggle = PartCrew}
+				{Toggle = PowerToggle}
+				{Toggle = ApexActivation}
+				{Toggle = DisableBuffToggle, invert = true}
+			]
+			Mode = All
+		}
+		DisableBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoDisable
+		}
+		ApexActivation
+		{
+			Type = BuffToggle
+			BuffType = ApexActivation
+		}
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+			RequiresCommand = false
+		}
+		IndicatorToggle
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = PowerToggle}
+				{Toggle = ApexActivation}
+				{Toggle = DisableBuffToggle, invert = true}
+			]
+			Mode = All
+		}
+		BatteryStorage
+		{
+			Type = AmmoStorage
+			MaxAmmo = 2000
+			StartingAmmo = &MaxAmmo
+			AmmoType = battery
+		}
+		BatteryConsumer
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			Storage = BatteryStorage
+			DefaultPriority = &/PRIORITIES/ControlRoom_Supply
+			ResupplyThreshold = 500
+			AmmoDesireToggle = PowerToggle
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+		
+		PowerDrain
+		{
+			Type = AmmoConverter
+			OperationalToggle = IsOperational
+			FromStorage = BatteryStorage
+			FromQuantity = 1000
+			Interval = 60// Drains 1 power every minute.
+		}
+
+		CrewLocation
+		{
+			Type = CrewLocation
+			Location = [1, 0.89]
+			Rotation = 180d
+		}
+		
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 1
+			DefaultPriority = &/PRIORITIES/ControlRoom_Crew
+			PrerequisitesBeforeCrewing = [PowerToggle]
+			HighPriorityPrerequisites = [BatteryStorage]
+			CrewDestinations
+			[
+				[1, 0.89]
+			]
+			CrewLocations
+			[
+				CrewLocation
+			]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 1.5]
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 3]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 3]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 3]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on9.png"
+							"doodads_on10.png"
+							"doodads_on11.png"
+							"doodads_on12.png"
+						]
+						Size = [2, 3]
+						AnimationInterval = 0.125
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [2, 3]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [2, 3]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 3]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 3]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 3]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 3]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 3]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 3]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				Offset = [0, -.5]
+				DamageLevels
+				[
+					{
+						File = "roof_windows_on.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_on_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_on_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			NonOperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				Offset = [0, -.5]
+				DamageLevels
+				[
+					{
+						File = "roof_windows_off.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_off_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_off_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+		}
+		
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [1, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "batteries1.png"
+					Size = [2, 2]
+				}
+				{
+					File = "batteries2.png"
+					Size = [2, 2]
+				}
+			]
+		}
+		
+		AutoReactorActivation
+		{
+			Type = GridBuffProvider
+			BuffType = AutomationEnable
+			BuffAmount = 1
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = IsOperational
+		}
+		WeaponControllerActivation
+		{
+			Type = GridBuffProvider
+			BuffType = WeaponControlEnable
+			BuffAmount = 1
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = IsOperational
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1, 1.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/MedPartDestroyed
+			Location = [1, 1.5]
+		}
+
+		OperationSoundLoop
+		{
+			Type = ContinuousEffects
+			Location = [1, 1.5]
+			OperationalToggle = IsOperational
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioInterior
+				{
+					Sound = "operating.wav"
+					Volume = .15
+					MaxConcurrentVolume = .3
+					Speed = .75
+					MaxConcurrent = 1
+				}
+			]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off or disabled
+				{
+					Toggle = IndicatorToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [2, 2]
+					}
+				}
+				// No crew.
+				{
+					Toggle = PartCrew
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoCrew
+						Size = [1.5, 1.5]
+					}
+				}
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1.5, 1.5]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 3]
+		}
+	}
+	
+	Stats
+	{
+		CrewRequired = &~/Part/Components/PartCrew/Crew
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxAmmo) / 1000
+		PowerUsageContinuous = (&~/Part/Components/PowerDrain/FromQuantity) / (&~/Part/Components/PowerDrain/Interval) / 1000
+
+		RecPower = (&PowerUsageContinuous)
+		RecCrew = (&CrewRequired) + (&RecPower) * 4
+	}
+}

@@ -1,0 +1,334 @@
+Ammo
+{
+	WiFi = "WiFi (Munition Interne ne pas toucher)"
+}
+
+Inputs
+{
+	PartToggles
+	{
+		area_diffuse_off = "Mode Zone: Centraliser"
+		area_diffuse_on = "Mode Zone: Diffuser"
+	}
+	PartTriggers
+	{
+		node_sensor = "Activer Capteur Principal"
+		node_speed_buff = "Activer Boost de Vitesse"
+		node_power_supply = "Activer Boost d'énergie d'alimentation"
+	}
+}
+
+BuildBox
+{
+	BuffRangeFmt = "<good>{0:0.##}m</good>"
+	BuffRatioFmt = "<good>{0:0}%</good>"
+}
+
+EditorGroups
+{
+	Drones = "Drones"
+	AutoPower = "Alimentation Automatique"
+}
+
+CategoryNouns
+{
+	apex_nodeSingular = "Nœud Apex"
+	apex_nodePlural = "Nœuds Apex"
+}
+
+Parts
+{
+	AutoReactorSmall = "Petit Cœur de Réacteur Automatique"
+	AutoReactorSmallIcon = "Petit AutoRéacteur"
+	AutoReactorSmallDesc = "Produit des batteries plasma en continu et les envoie automatiquement vers les systemes du vaisseau. Il possède trois modes, le mode par défaut est le mode alimentation, où l'energie est transmise par les chargeurs automatiques, et les modes zone sont activée par le disjoncteur. En mode zone, il peut changer à tout moment entre le mode centraliser, où l'energie is distribuée entre les pièces les plus proches, et le mode diffuser où l'energie is répartie également entre toutes les pièces dans la zone. \nRequiert un nœud apex."
+	
+	AutoReactorMed = "Cœur de Réacteur Automatique Moyen"
+	AutoReactorMedIcon = "AutoRéacteur Moyen"
+	AutoReactorMedDesc = &AutoReactorSmallDesc
+	
+	AutoReactorLarge = "Grand Cœur de Réacteur Automatique"
+	AutoReactorLargeIcon = "Grand AutoRéacteur"
+	AutoReactorLargeDesc = &AutoReactorSmallDesc
+	
+	AutoLoaderSmall = "Petit chargeur d'énergie automatique"
+	AutoLoaderSmallIcon = "Petit AutoChargeur"
+	AutoLoaderSmallDesc = "Charge l'énergie venant des auto-réacteurs dans le module devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	AutoLoaderMed = "Double chargeur d'énergie automatique"
+	AutoLoaderMedIcon = "Double AutoChargeur"
+	AutoLoaderMedDesc = "Deux fois plus gros que le petit auto-chargeur mais charge quatre fois plus d'énergie. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	AdvAutoLoader = "Chargeur d'énergie automatique avancé"
+	AdvAutoLoaderIcon = "AutoChargeur avancé"
+	AdvAutoLoaderDesc = "Charge l'énergie venant des auto-réacteurs dans les modules adjacents. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	CompAutoLoader = "Chargeur d'énergie automatique compact"
+	CompAutoLoaderIcon = "AutoChargeur compact"
+	CompAutoLoaderDesc = "Charge l'énergie venant des auto-réacteurs dans les modules adjacents. Il est moins efficace que l'auto-chargeur avancé mais il peut être traversé par l'équipage comme un couloir. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	FuelAutoLoader = "Chargeur de carburant automatique"
+	FuelAutoLoaderIcon = "AutoChargeur de carburant"
+	FuelAutoLoaderDesc = "Convertit l'énergie des auto-réacteurs en un carburant efficace et le charge dans les propulseurs adjacents, augmentant leur puissance de 50%. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	AmmoAutoLoader = "Chargeur de munitions automatique"
+	AmmoAutoLoaderIcon = "AutoChargeur de munitions"
+	AmmoAutoLoaderDesc = "Convertit l'énergie des auto-réacteurs pour charger des munitions dans les modules devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	MissileAutoLoaderHe = "Chargeur de missiles hautement explosifs automatique"
+	MissileAutoLoaderHeIcon = "AutoChargeur de Missile H.E."
+	MissileAutoLoaderHeL = "Chargeur de missiles hautement explosifs automatique (Gauche)"
+	MissileAutoLoaderHeLIcon = "AutoChargeur de Missile H.E. (G)"
+	MissileAutoLoaderHeR = "Chargeur de missiles hautement explosifs automatique (Droite)"
+	MissileAutoLoaderHeRIcon = "AutoChargeur de Missile H.E. (D)"
+	MissileAutoLoaderHeDesc = "Convertit l'énergie des auto-réacteurs pour charger des pièces de missiles H.E. dans les modules devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	MissileAutoLoaderHeSingularDesc = "Convertit l'énergie des auto-réacteurs pour charger des pièces de missiles H.E. dans le module devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	MissileAutoLoaderEmp = "Chargeur de missiles IEM automatique"
+	MissileAutoLoaderEmpIcon = "AutoChargeur de Missile IEM"
+	MissileAutoLoaderEmpDesc = "Convertit l'énergie des auto-réacteurs pour charger des pièces de missiles IEM dans les modules devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	MissileAutoLoaderNuke = "Chargeur de missiles nucléaire automatique"
+	MissileAutoLoaderNukeIcon = "AutoChargeur de missile nucléaire"
+	MissileAutoLoaderNukeDesc = "Convertit l'énergie des auto-réacteurs pour charger des pièces de missiles nucléaires dans les modules devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	MineAutoLoader = "Chargeur de mines automatique"
+	MineAutoLoaderIcon = "AutoChargeur de Mines"
+	MineAutoLoaderDesc = "Convertit l'énergie des auto-réacteurs pour charger des mines dans les modules devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	MineAutoLoaderSingularDesc = "Convertit l'énergie des auto-réacteurs pour charger des mines dans le module devant. \nFonctionne seulement avec des auto-réacteurs en mode alimentation."
+	
+	CircuitBreaker = "Disjoncteur"
+	CircuitBreakerIcon = &CircuitBreaker
+	CircuitBreakerDesc = "Active les modes zone et désactive le mode alimentation des auto-réacteurs. Chaque disjoncteur augmente la zone de l'auto-réacteurs de 50m² *, mais dilue l'énergie quand l'auto-réacteur est en mode zone diffuser.\n\n<gray>* 50.2654824574 ou 16π m² pour être exact</gray>"
+	
+	Transformer = "Tranformateur électrique"
+	TransformerIcon = "Transfo"
+	TransformerDesc = "Augmente la production d'énergie des auto-réacteurs en mode zone diffuser de 50%, mais rendra aussi le réacteur bien plus explosif."
+	
+	Capacitor = "Condensateur"
+	CapacitorIcon = &Capacitor
+	CapacitorDesc = "Petit stokage automatique d'énergie. Il se raccorde au module devant pour partager son énergie, rechargeant et déchargeant au besoin. Parfait pour augmenter la durée de fonctionnement des modules énergivore. Cependant, il ne fonctionne pas avec les générateurs de bouclier ou les hyperpropulsions."
+	
+	SemiConductingWire = "Cable Semiconducteur"
+	SemiConductingWireIcon = &SemiConductingWire
+	SemiConductingWireDesc = "Cable spécial qui empeche l'énergie de refluer.Son principal usage est de transporter l'énergie sur plusieurs mètres sans pertes dues au reflux, mais il doit être utilisé avec des cables de couplage puisqu'il ne pompe pas de lui même l'énergie des modules. Il agit également comme un paratonnerre pour les effets I.E.M et il peut être traversé par l'équipage comme un couloir. Cependant, il ne fonctionne pas avec les hyperpropulsions."
+	SuperConductingWire = "Cable Supraconducteur"
+	SuperConductingWireIcon = &SuperConductingWire
+	SuperConductingWireDesc = "Cable spécial qui empeche l'énergie de refluer.Son principal usage est de transporter l'énergie sur plusieurs mètres sans pertes dues au reflux, mais il doit être utilisé avec des cables de couplage puisqu'il ne pompe pas de lui même l'énergie des modules. Il agit également comme un paratonnerre pour les effets I.E.M et il peut être traversé par l'équipage comme un couloir. Cependant, il ne fonctionne pas avec les hyperpropulsions."
+	
+	CouplingWire = "Cable de couplage"
+	CouplingWireIcon = "Cable de couplage (│)"
+	CouplingWireElbow = "Cable de couplage (Coude)"
+	CouplingWireElbowIcon = "Cable de couplage (┐)"
+	CouplingWireDesc = "Couple les stockages de batteries entre deux modules pour leur faire partager leur énergie également. Il peut être traversé par l'équipage comme un couloir. Cependant, il ne fonctionne pas avec les hyperpropulsions."
+	CouplingWireTee = "Cable de couplage (Té)"
+	CouplingWireTeeIcon = "Cable de couplage (┬)"
+	CouplingWireTeeDesc = "Couple les stockages de batteries entre trois modules pour leur faire partager leur énergie également. Il peut être traversé par l'équipage comme un couloir. Cependant, il ne fonctionne pas avec les hyperpropulsions."
+	CouplingWireCross = "Cable de couplage (Croix)"
+	CouplingWireCrossIcon = "Cable de couplage (┼)"
+	CouplingWireCrossDesc = "Couple les stockages de batteries entre quatre modules pour leur faire partager leur énergie également. Il peut être traversé par l'équipage comme un couloir. Cependant, il ne fonctionne pas avec les hyperpropulsions."
+	
+	AmmoBelt = "Ceinture de munitions"
+	AmmoBeltIcon = &AmmoBelt
+	AmmoBeltDesc = "Simple méchanisme pour charger rapidement des munitions dans le module devant. Il peut être manuellement rechargé par l'équipage ou recevoir des munitions venant d'autres chargeurs de munitions."
+	
+	Lantern = "Lanterne"
+	LanternIcon = &Lantern
+	LanternDesc = "Ce module est fait pour tester, il peut recevoir une batterie seulement et c'est tout. "
+	
+	LargeDrone = "Grand Noyau de Drone"
+	LargeDroneIcon = "Grand Drone"
+	LargeDroneDesc = "Un grand et puissant noyau de drone. Il a la capacité d'activer les auto-réacteurs et les controleurs d'armes, mais il ne fournit pas d'énergie lui même.\nRequiert un nœud apex."
+	
+	SmallDrone = "Petit Noyau de Drone"
+	SmallDroneIcon = "Petit Drone"
+	SmallDroneDesc = "Une petite pièce de circuit électronique avec un condensé de technologie, capable à la fois de controler et d'alimenter un petit drone.\nRequiert un nœud apex."
+	
+	AutoDrone = "Noyau de Drone Autonome"
+	AutoDroneIcon = "Drone Autonome" 
+	AutoDroneDesc = "Un noyau de drone compact, manufacturé sous licence à partir des plans du noyau de drone Gen - 2 . Sont inclus un nœud apex modifié, un module d'IA intégré, une hyperpropulsion et une alimentation électrique ultra preformante. Le but de l'accelerateur de matière étant toujours inconnu, il n'a pas été ajouté à ce noyau de drone. \n\n<bad>Attention : Ce nœud apex n'est pas compatible avec les autres noyaux de drones ou les auto-réacteurs !</bad>"
+	
+	DroneController = "Station de Controle de Drones"
+	DroneControllerIcon = "Controleur"
+	DroneControllerDesc = "Nécessaire pour faire fonctionner les drones correctement. Il est moins rapide que le module d'IA et requiert de l'équipage mais il peut controler des noyaux de drones jusqu'à 500 mètres et même au delà si sa portée est augmentée avec des résaux de capteurs.\n\n<bad>Attention : trop augmenter la portée du WiFi peut causer des pics de latence, à utiliser avec précaution</bad>"
+	
+	Console = "Console"
+	ConsoleIcon = &Console
+	ConsoleDesc = "Active les auto-réacteurs et les controleurs d'armes. \nRequiert un nœud apex."
+	
+	AI = "Module d'Intelligence Artificielle"
+	AIIcon = "Module d'IA"
+	AIDesc = "A la fois un centre de traitement des données et un transmetteur, il peut controler des drones jusqu'à 150 mètres de distance. Comme il est entièrement automatisé il envoi des ordres cinq fois plus vite que la station de controle de drones et n'a seulement besoin d'énergie donc il peut être placé à bord d'un drone approprié."
+	
+	ApexNode = "Nœud Apex"
+	ApexNodeO = "Nœud Apex (Offensive)"
+	ApexNodeP = "Nœud Apex (Energie)"
+	ApexNodeS = "Nœud Apex (Reconnaissance)"
+	ApexNodeIcon = &ApexNode
+	ApexNodeOIcon = "Nœud Apex (O)"
+	ApexNodePIcon = "Nœud Apex (E)"
+	ApexNodeSIcon = "Nœud Apex (R)"
+	ApexNodeDesc = "Pièce centrale de tout vaisseau automatisé, nécessaire pour le bon fonctionement des auto-réacteurs et des noyaux de drone. \nUne seulement est autorisé par vaisseau."
+	ApexNodeODesc = "Pièce centrale de tout vaisseau automatisé, nécessaire pour le bon fonctionement des auto-réacteurs et des noyaux de drone. \nSpecialisé pour l'offensive, augmente l'efficacité des armes automatisées et la production de munitions. Activé, il fournit un grand boost de vitesse.\nUne seulement est autorisé par vaisseau."
+	ApexNodePDesc = "Pièce centrale de tout vaisseau automatisé, nécessaire pour le bon fonctionement des auto-réacteurs et des noyaux de drone. \nSpecialisé pour l'optimisation de l'énergie, augmente l'efficacité des chargeurs d'énergie automatiques ainsi que la production d'énergie des petits noyaux de drones. Activé, il permet aux réacteurs automatiques de donner 100% d'énergie d'alimentation à tout les chargeurs automatiques à portée et augmente la production d'énergie des petits noyaux de drones encore plus.\nUne seulement est autorisé par vaisseau."
+	ApexNodeSDesc = "Pièce centrale de tout vaisseau automatisé, nécessaire pour le bon fonctionement des auto-réacteurs et des noyaux de drone. \nSpecialisé pour l'exploration, augmente l'efficacité des petits capteurs et fournit un boost de vitesse. Il contient aussi une hyperpropulsion et peux activer un capteur à grand rayon d'action.\nUne seulement est autorisé par vaisseau."
+	
+	SensorSmall = "Petit Capteur"
+	SensorSmallIcon = &SensorSmall
+	SensorSmallDesc = "Petit module de capteur indépendant, fait pour les vaisseaux n'ayant pas de capteurs inclus. Seul il est moins puissant que le capteur de la salle de controle standard mais il peut former un résau avec d'autres petits capteurs et atteindre de plus grandes portées."
+	
+	AutoGun = "Canon d'attaque à distance automatisé"
+	AutoGunIcon = "Canon Automatisé"
+	AutoGunDesc = "Fonctionne sans équipage et possède son propre système de guidage. Bien qu'il manque de précision, il peut tirer très rapidement et peut être utilisé sur des drones pour tirer dans le tas."
+	
+	AutoRifle = "Fusil d'attaque à distance automatisé"
+	AutoRifleIcon = "Fusil Automatisé"
+	AutoRifleDesc = "Fonctionne sans équipage et possède son propre système de guidage. Possède la meilleure précision et portée de toutes les armes automatisées."
+	
+	AutoLaser = "Laser d'attaque à distance automatisé"
+	AutoLaserIcon = "Laser Automatisé"
+	AutoLaserDesc = "Fonctionne sans équipage et possède son propre système de guidage. Une arme bien équillibrée, assez efficace contre les boucliers."
+	
+	InternalStructure = "Armature Interne"
+	InternalStructureIcon = &InternalStructure
+	InternalStructureDesc = "Simple pièce d'armature avec panneau léger attaché. Il a une fonction similaire à l'armature sous-jacente, mais ne peut pas être traversé par l'équipage."
+	
+	WeaponController = "Controleur d'armes"
+	WeaponControllerIcon = &WeaponController
+	WeaponControllerDesc = "Comprend des systèmes de détection automatique de cibles et de traquage qui permettent un usage totalement autonome des armes*. Il peut être activé par une console, un grand noyau de drone ou un noyau de drone autonome.\n\n<gray>* toutes les armes de base sont inclues, mais ne fonctionne sans doute pas avec les armes venant d'autres mods</gray>"
+	
+	DroneShieldGen = "Générateur de bouclier pour éclaireur"
+	DroneShieldGenIcon = "Petit Générateur de bouclier"
+	DroneShieldGenDesc = "Version réduite et plus faible du générateur de bouclier, mais mieux adaptée pour être utilisée sur des vaisseaux d'éclairage et des drones."
+	
+	DroneFtlDrive = "Hyperpropulsion pour drone"
+	DroneFtlDriveIcon = &DroneFtlDrive
+	DroneFtlDriveDesc = "Version réduite et moins efficace de l'hyperpropulsion, mais mieux adaptée pour être utilisée sur des vaisseaux d'éclairage et des drones. Permet au vaisseau de sauter vers d'autres endroits de la galaxie."
+	
+	FtlResonator = "Hyper Résonateur"
+	FtlResonatorIcon = &FtlResonator
+	FtlResonatorDesc = "Dernière innovation en technologie d'hyperpropulsion, cette pièce complexe mais facile à produire fonctionne comme une hyperpropulsion mais sans nécessiter de source d'énergie. Cette technologie étant encore experimentale, il est nécessaire d'avoir une hyperpropulsion fonctionnelle à bord du vaisseau."
+}
+
+PartToggles
+{
+	Area_Central = "<b>Mode Zone: Centraliser</b>\n\nRaccourci: <btn id='PartToggles.area_diffuse_off'/>"
+	Area_Diffuse = "<b>Mode Zone: Diffuser</b>\n\nRaccourci: <btn id='PartToggles.area_diffuse_on'/>"
+}
+PartTriggers
+{
+	Sensor = "Activer Capteur Principal\n\nRaccourci: <btn id='PartTriggers.node_sensor'/>"
+	Speed = "Activer Boost de Vitesse\n\nRaccourci: <btn id='PartTriggers.node_speed_buff'/>"
+	Power = "Activer Boost d'énergie d'alimentation\n\nRaccourci: <btn id='PartTriggers.node_power_supply'/>"
+}
+
+Stats
+{
+	WifiAutonomyFmt = "<white>Autonomie sans WiFi:</white> <good>{0:0.##}</good><gray> secondes</gray>"
+	SupplyRangeFmt = "<white>Portée d'alimentation:</white> <good>{0:0}</good><gray> mètres</gray>"
+	SupplyPowerFmt = "<white>Production d'énergie d'alimentation:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	SupplyPowerUseFmt = "<white>Utilisation d'énergie d'alimentation:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	PowerLoaderFmt = "<white>Energie chargée:</white> <good>{0:0.##}</good><gray>/sec (multiplicateur: </gray><good>x{1:0.##}</good><gray>)</gray>"
+	TotalPowerLoaderFmt = "<white>Energie totale chargée:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	FuelLoaderFmt = "<white>Carburant (énergie) chargé:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	PowerThroughputFmt = "<white>Débit maximum d'énergie:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	AmmoThroughputFmt = "<white>Débit de munitions:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	AmmoLoaderFmt = "<white>Munitions chargées:</white> <good>{0:0.##}</good><gray>/sec (multiplicateur: </gray><good>x{1:0.##}</good><gray>)</gray>"
+	MissileLoaderFmt = "<white>Pièces de missile chargées:</white> <good>{0:0.##}</good><gray>/sec (multiplicateur: </gray><good>x{1:0.##}</good><gray>)</gray>"
+	MineLoaderFmt = "<white>Mines chargées:</white> <good>{0:0.##}</good><gray>/sec (multiplicateur: </gray><good>x{1:0.##}</good><gray>)</gray>"
+	CircuitBreakerBuffFmt = "<gray>Rayon de la Zone des auto-réacteurs (par nombre de disjoncteurs):</gray>\n"\
+							"  <TransparentWhite>0</TransparentWhite><white>1: </white><good>{0:0.000} mètres</good> "\
+							"  <TransparentWhite>0</TransparentWhite><white>6: </white><good>{5:0.000} mètres</good>\n"\
+							"  <TransparentWhite>0</TransparentWhite><white>2: </white><good>{1:0.000} mètres</good> "\
+							"  <TransparentWhite>0</TransparentWhite><white>7: </white><good>{6:0.000} mètres</good>\n"\
+							"  <TransparentWhite>0</TransparentWhite><white>3: </white><good>{2:0.000} mètres</good> "\
+							"  <TransparentWhite>0</TransparentWhite><white>8: </white><good>{7:0.000} mètres</good>\n"\
+							"  <TransparentWhite>0</TransparentWhite><white>4: </white><good>{3:0.000} mètres</good> "\
+							"  <TransparentWhite>0</TransparentWhite><white>9: </white><good>{8:0.000} mètres</good>\n"\
+							"  <TransparentWhite>0</TransparentWhite><white>5: </white><good>{4:0.000} mètres</good> "\
+							"  <white>10: </white><good>{9:0.000} mètres</good>\n"
+	TransformerBuffFmt = "<gray>Augmentation de la production d'énergie des auto-réacteurs quand ils sont en mode zone diffuser (par nombre de transfos):</gray>\n"\
+						 "  <TransparentWhite>0</TransparentWhite><white>1: </white><good>+{0:000}%</good> "\
+						 "  <TransparentWhite>0</TransparentWhite><white>6: </white><good>+{5:000}%</good> "\
+						 "  <white>11: </white><good>+{10:000}%</good>\n"\
+						 "  <TransparentWhite>0</TransparentWhite><white>2: </white><good>+{1:000}%</good> "\
+						 "  <TransparentWhite>0</TransparentWhite><white>7: </white><good>+{6:000}%</good> "\
+						 "  <white>12: </white><good>+{11:000}%</good>\n"\
+						 "  <TransparentWhite>0</TransparentWhite><white>3: </white><good>+{2:000}%</good> "\
+						 "  <TransparentWhite>0</TransparentWhite><white>8: </white><good>+{7:000}%</good> "\
+						 "  <white>13: </white><good>+{12:000}%</good>\n"\
+						 "  <TransparentWhite>0</TransparentWhite><white>4: </white><good>+{3:000}%</good> "\
+						 "  <TransparentWhite>0</TransparentWhite><white>9: </white><good>+{8:000}%</good> "\
+						 "  <white>14: </white><good>+{13:000}%</good>\n"\
+						 "  <TransparentWhite>0</TransparentWhite><white>5: </white><good>+{4:000}%</good> "\
+						 "  <white>10: </white><good>+{9:000}%</good> "\
+						 "  <white>15: </white><good>+{14:000}%</good>\n"
+	DiffusePower6Fmt = "<gray>Energie par modules (par nombre de disjoncteur):</gray>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>1: </white><good>{0:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>4: </white><good>{3:0.000}/modules</good>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>2: </white><good>{1:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>5: </white><good>{4:0.000}/modules</good>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>3: </white><good>{2:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>6: </white><good>{5:0.000}/modules</good>\n"
+	DiffusePower8Fmt = "<gray>Energie par modules (par nombre de disjoncteur):</gray>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>1: </white><good>{0:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>5: </white><good>{4:0.000}/modules</good>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>2: </white><good>{1:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>6: </white><good>{5:0.000}/modules</good>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>3: </white><good>{2:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>7: </white><good>{6:0.000}/modules</good>\n"\
+					   "  <TransparentWhite>0</TransparentWhite><white>4: </white><good>{3:0.000}/modules</good> "\
+					   "  <TransparentWhite>0</TransparentWhite><white>8: </white><good>{7:0.000}/modules</good>\n"
+	DiffusePower10Fmt = "<gray>Energie par modules (par nombre de disjoncteur):</gray>\n"\
+						"  <TransparentWhite>0</TransparentWhite><white>1: </white><good>{0:0.000}/modules</good> "\
+						"  <TransparentWhite>0</TransparentWhite><white>6: </white><good>{5:0.000}/modules</good>\n"\
+						"  <TransparentWhite>0</TransparentWhite><white>2: </white><good>{1:0.000}/modules</good> "\
+						"  <TransparentWhite>0</TransparentWhite><white>7: </white><good>{6:0.000}/modules</good>\n"\
+						"  <TransparentWhite>0</TransparentWhite><white>3: </white><good>{2:0.000}/modules</good> "\
+						"  <TransparentWhite>0</TransparentWhite><white>8: </white><good>{7:0.000}/modules</good>\n"\
+						"  <TransparentWhite>0</TransparentWhite><white>4: </white><good>{3:0.000}/modules</good> "\
+						"  <TransparentWhite>0</TransparentWhite><white>9: </white><good>{8:0.000}/modules</good>\n"\
+						"  <TransparentWhite>0</TransparentWhite><white>5: </white><good>{4:0.000}/modules</good> "\
+						"  <white>10: </white><good>{9:0.000}/modules</good>\n"
+	FrequencyFmt = "<white>Fréquence:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	FrequencyBuffFmt = "<white>Fréquence:</white> <good>{0:0.##}</good><gray>/sec (max </gray><good>{1:0.##}</good><gray>/sec)</gray>"
+	SmallSensorBuffFmt = "<white>Amélioration des petits capteurs:</white> <good>+{0:0}%</good><gray> portée</gray>"
+	SensorRangeBuffFmt = "<white>Portée des capteurs:</white> <good>{0:0}</good><gray> mètres (max </gray><good>{1:0}</good><gray> mètres)</gray>"
+	FtlLoadingTimeFmt = "<white>Temps de charge de l'hyperpropulsion:</white> <good>{0:0.#}</good> <gray>secondes</gray>"
+	FtlPowerLoaderFmt = "<white>Energie par hyperpropulsion:</white> <good>{0:0.##}</good><gray>/sec</gray>"
+	DurationFmt = "<white>Durée:</white> <good>{0:0.##}</good><gray> secondes</gray>"
+	ReloadTimeFmt = "<white>Temps de recharge:</white> <good>{0:0.##}</good><gray> secondes</gray>"
+	UnloadTimeFmt = "<white>Temps de décharge:</white> <good>{0:0.##}</good><gray> secondes</gray>"
+	AutoWeaponRangeBuffFmt = "<white>Amélioration des laser &amp; fusils automatisés:</white> <good>+{0:0}%</good><gray> portée</gray>"
+	AutoGunAccuracyBuffFmt = "<white>Amélioration des cannons automatisés:</white> <good>-{0:0}%</good><gray> propagation aléatoire</gray>"
+	AmmoLoaderBuffFmt = "<white>Amélioration des chargeurs de munitions &amp; missiles automatisés:</white> <good>+{0:0}%</good><gray> efficacité</gray>"
+	PowerLoaderBuffFmt = "<white>Amélioration des chargeurs d'énergie automatisés:</white> <good>+{0:0}%</good><gray> efficacité</gray>"
+	DronePowerBuffFmt = "<white>Amélioration des petits noyaux de drone:</white> <good>+{0:0}%</good><gray> énergie</gray>"
+	
+	
+	AutoReactorNotes = "<gray>NOTE: Les auto-réacteurs peuvent être améllioré avec des disjoncteurs et des transformateurs électriques, regarde leur statistiques pour en savoir plus.</gray>"
+	CouplingBackflowNotes = "<gray>NOTE: A cause des reflux (l'énergie revenant d'où elle vient), le vrai débit est souvent la moitié du débit maximum.</gray>"
+	SemiConductingNotes = "<gray>NOTE: Le débit maximum mesuré est environ 95% du débit maximum théorique indiqué ci-dessus.</gray>"
+	SuperConductingNotes = "<gray>NOTE: Pour plusieurs raisons inconnues, le débit maximum mesuré est inférieur à la moitié du débit maximum théorique indiqué ci-dessus.</gray>"
+}
+
+StatCategories
+{
+	AutoGun = "Tir de cannon"
+	AutoLaser = "Tir de laser"
+	AutoRifle = "Tir de fusil"
+	CircuitBreakerBuff = "Bonus du disjoncteur"
+	TransformerBuff = "Bonus du transformateur électrique"
+	Wifi = "Émetteur WiFi"
+	Ftl = "Hyperpropulsion"
+	ActivatedAbility = "Capacité activée"
+	FtlLoader = "Mode Zone : Charger l'hyperpropulsion"
+	AutoReactorAreaCentral = "Mode Zone : Centraliser"
+	AutoReactorAreaDiffuse = "Mode Zone : Diffuser"
+	AutoReactorSupply = "Mode Alimentation"
+	PowerLoader = "Chargeur d'énergie"
+	FuelLoader = "Chargeur de carburant"
+	AmmoLoader = "Chargeur de munitions"
+	MissileLoader = "Chargeur de missiles"
+	MineLoader = "Chargeur de mines"
+}
+

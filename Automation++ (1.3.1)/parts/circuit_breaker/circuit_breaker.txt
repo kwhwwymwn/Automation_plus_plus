@@ -1,0 +1,293 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/CircuitBreaker"
+	IconNameKey = "Parts/CircuitBreakerIcon"
+	ID = jbox1.auto.circuit_breaker
+	OtherIDs = [jbox1.auto.curcuit_breaker]
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/CircuitBreakerDesc"
+	Cost = 10000
+	Size = [2, 2]
+	SelectionPriority = 1
+	MaxHealth = 4000
+	CrewSpeedFactor = 0
+	TypeCategories = [power, automation, buff_provider]
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		
+		BuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorArea
+			BuffAmount = 16
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+		
+		DebuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorAreaPenalty
+			BuffAmount = 20
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+		//for fixing buff display in blueprint mode
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 1000000000
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 1000000000
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 1000000000
+			GridDistance = 1
+			OperationalToggle = IsOperational
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational
+			Location = [1, 1]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"doodads_on1.png"
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+						]
+						Size = [2, 2]
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [2, 2]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [2, 2]
+					}
+				]
+			}
+		}
+
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [1, 1]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+		
+		OperationSoundLoop
+		{
+			Type = ContinuousEffects
+			Location = [1, 1]
+			OperationalToggle = IsOperational
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioInterior
+				{
+					Sound = "operating.wav"
+					Volume = .15
+					MaxConcurrentVolume = .3
+					Speed = .75
+					MaxConcurrent = 1
+				}
+			]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/MedPartDestroyed
+			Location = [1, 1]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 1]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 2]
+		}
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/CircuitBreakerBuff"
+			Stats
+			{
+				Multiplier = (&~/Part/Components/BuffProvider/BuffAmount)
+				Exponent = 0.5
+				CircuitBreakerBuff
+				[
+					(1 * (&../Multiplier)) ^ (&../Exponent)
+					(2 * (&../Multiplier)) ^ (&../Exponent)
+					(3 * (&../Multiplier)) ^ (&../Exponent)
+					(4 * (&../Multiplier)) ^ (&../Exponent)
+					(5 * (&../Multiplier)) ^ (&../Exponent)
+					(6 * (&../Multiplier)) ^ (&../Exponent)
+					(7 * (&../Multiplier)) ^ (&../Exponent)
+					(8 * (&../Multiplier)) ^ (&../Exponent)
+					(9 * (&../Multiplier)) ^ (&../Exponent)
+					(10 * (&../Multiplier)) ^ (&../Exponent)
+				]
+			}
+		}
+	]
+}

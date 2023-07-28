@@ -1,0 +1,196 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/SuperConductingWire"
+	IconNameKey = "Parts/SuperConductingWireIcon"
+	ID = kwhwwymwn.auto.superconducting_wire
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/SuperConductingWireDesc"
+	Cost = 1000
+	Size = [1, 1]
+	SelectionPriority = 0
+	IsBuildable = &<../../secrets/debug_mode.txt>/debug
+	MaxHealth = 1000
+	CreatePartPerTileWhenGrabbed = ""
+	SelectionTypeID = "wires"
+	TypeCategories = [corridor, power, automated, wires, storage]
+	CrewSpeedFactor = 1
+	CrewCongestedSpeedFactor = .5
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	IsWalled = false
+	GeneratorRequiresDoor = false
+	CreatePassableHolesWhenDestroyed = true
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage]
+			Mode = All
+		}
+		EmpAbsorber
+		{
+			Type = ExplosiveAmmoDrainSink
+			AmmoType = battery
+			AbsorbsAmmoDrain = 1000
+			RecoveryRate = 100 // 10s to recover
+		}
+		BatteryStorage
+		{
+			Type = AmmoStorage
+			AmmoType = battery
+			MaxAmmo = 1000
+			InitToMaxAmmo = 0
+			IsDrainable = false
+			DrainOnFtlJump = true
+		}
+		Proxy
+		{
+			Type = AmmoStorageProxy
+			AmmoType = battery
+			PartLocation = [0, -1]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				ExcludeCategories = [ftl]
+			}
+		}
+		PowerLoader
+		{
+			Type = AmmoConverter
+			OperationalToggle = IsOperational
+			FromStorage = BatteryStorage
+			ToStorage = Proxy
+			FromQuantity = 1
+			ToQuantity = 1
+		}
+		
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads_on.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_low"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		WallsBlend : <./Data/ships/terran/walls/walls.txt>
+		{
+			Type = BlendSprite
+			Location = [.5, .5]
+			BlendsWithCategories = [corridor]
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+		
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [0.5, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [0.8, 0.8]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+
+		BlueprintWalls : <./Data/ships/terran/walls/blueprint walls.txt>
+		{
+			Location = [.5, .5]
+			BlendsWithCategories = [corridor]
+		}
+		
+	}
+	Stats
+	{
+		EMPResist = (&~/Part/Components/EmpAbsorber/AbsorbsAmmoDrain) / 1000
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxAmmo) / 1000
+		PowerThroughput = (&PowerCapacity) * (&Frequency)
+		Frequency = 30 //number of tick/second
+	}
+	StatsNotesKey = "Stats/SuperConductingNotes"
+}

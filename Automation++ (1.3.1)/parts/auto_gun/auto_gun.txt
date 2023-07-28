@@ -1,0 +1,431 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/AutoGun"
+	IconNameKey = "Parts/AutoGunIcon"
+	ID = jbox1.auto.auto_gun
+	OtherIDs = ["drone_gun"]
+	EditorGroup = "WeaponsEnergy"
+	DescriptionKey = "Parts/AutoGunDesc"
+	Cost = 1000
+	TypeCategories = [weapon, weapon_using_power, automated]
+	Size = [1, 2]
+	PhysicalRect = [0, 1, 1, 1]
+	SaveRect = &PhysicalRect
+	SelectionPriority = 1
+	SelectionTypeByRotation = true
+	MaxHealth = 3000
+	InitialPenetrationResistance = 3
+	PenetrationRectType = Normal
+	ProhibitAbove = 1
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoGunAccuracy]
+	AllowedDoorLocations
+	[
+		[-1, 1]
+		[1, 1]
+		[0, 2]
+	]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [21.33, 42.66]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BatteryStorage]
+			Mode = All
+		}
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		FireModeToggle
+		{
+			Type = UIToggle
+			ToggleID = "fire_mode"
+			Default = 1
+			ToggledOnChoices = [0, 1, 2]
+		}
+		AutoTargetToggle
+		{
+			Type = ModeToggle
+			Mode = FireModeToggle
+			OnModes = [1, 2]
+		}
+		AutoFireToggle
+		{
+			Type = ModeToggle
+			Mode = FireModeToggle
+			OnMode = 2
+		}
+
+		BatteryStorage
+		{
+			Type = AmmoStorage
+			AmmoType = battery
+			MaxAmmo = 2000
+		}
+		BatteryConsumer
+		{
+			Type = AmmoConsumer
+			AmmoType = battery
+			Storage = BatteryStorage
+			DefaultPriority = &/PRIORITIES/Weapon_Supply
+			ResupplyThreshold = 500
+			OperationalToggle = PowerToggle
+			ReceiveAmmoMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			Location = [.5, 1.5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_on.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				Offset = [0, -0.5]
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_window.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_window_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		Turret
+		{
+			Type = TurretWeapon
+			OperationalToggle = IsOperational
+			Location = [.5, 0.89]
+			Rotation = -90d
+			FireInterval = .1
+			FiringArc = 120d
+			RotateSpeed = 360d
+			FireThresholdAngle = 1d
+			AIFirepowerRating = 450
+			Emitter = BulletEmitter
+			AutoFireToggle = AutoFireToggle
+			FirePermissionToggle = FireModeToggle
+			AutoTargets
+			[
+				{
+					TargetType = ShipParts
+					Toggle = AutoTargetToggle
+				}
+			]
+			BlueprintArcSprite
+			{
+				Texture = &/INDICATORS/WeaponArc
+				Size = [0, 1.5]
+				Color = [255, 0, 0, 63]
+			}
+			BlueprintArcRadius = 10
+			BlueprintArcSpriteSegments = 64
+			CoverageSectorArc
+			{
+				Texture = &/INDICATORS/VerticalGradient
+				VertexColor = [255, 255, 255, 51]
+				QuadCount = 64
+			}
+			
+		}
+		ReloadProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = Turret
+		}
+		BulletEmitter
+		{
+			Type = BulletEmitter
+			ChainedTo = Turret
+			FireTrigger = Turret
+			GetTargetFrom = Turret
+			Location = [0.6875, 0]
+			OperationalToggle = IsOperational
+			Bullet = &<bullet.txt>
+			Spread = [{ BaseValue=-2.5d; BuffType=AutoGunAccuracy; BuffMode=Multiply;}, { BaseValue=2.5d; BuffType=AutoGunAccuracy; BuffMode=Multiply;}]
+			AmmoStorage = BatteryStorage
+			AmmoUsed = 50
+			Recoil = 5
+		}
+		
+		FireEffect
+		{
+			Type = TriggeredEffects
+			ChainedTo = Turret
+			Trigger = Turret
+			Location = [0.6875, 0]
+			AnchorMediaEffects = true
+
+			MediaEffects
+			[
+				&<./Data/ships/terran/point_defense/particles/point_defense_shoot.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "point_defense_shoot.wav"
+					Volume = .25
+					SpeedVariation = .25
+				}
+			]
+		}
+
+		TurretGraphics
+		{
+			Type = Graphics
+			OperationalToggle = IsOperational,
+			ChainedTo = Turret
+			Location = [-0.109375, 0]
+			Rotation = 90d
+			OperationalDoodad
+			{
+				Layer = "turrets"
+				DamageLevels
+				[
+					{
+						File = "turret_on.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_on_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_on_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "turrets"
+				DamageLevels
+				[
+					{
+						File = "turret_off.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_off_33.png"
+						Size = [1, 2]
+					}
+					{
+						File = "turret_off_66.png"
+						Size = [1, 2]
+					}
+				]
+			}
+		}
+
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [.5, 1]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_high"
+			AmmoLevels
+			[
+				{
+					File = "batteries1.png"
+					Size = [1, 2]
+				}
+				{
+					File = "batteries2.png"
+					Size = [1, 2]
+				}
+			]
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Toggle = IsOperational,
+			Location = [.5, 1.5]
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/PowerOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/PowerOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyed
+			Location = [.5, 1.5]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [.5, 1.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [1, 1]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BatteryStorage
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+		BlueprintSprite0
+		{
+			Type = BlueprintSprite
+			File = "blueprints2.png"
+			Size = [1, 2]
+		}
+	}
+
+	Stats
+	{
+		PowerCapacity = (&~/Part/Components/BatteryStorage/MaxAmmo) / 1000
+
+		RecPower = &../StatsByCategory/0/Stats/PowerPerSecond
+	}
+
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/AutoGun"
+			Stats
+			{
+				DamagePerShot = &~/Part/Components/BulletEmitter/Bullet/Components/Hit/HitOperational/HitEffects/0/Damage
+				DamagePerSecond = (&DamagePerShot) * (&ROF)
+				Damage = [&../DamagePerShot, &../DamagePerSecond]
+				ROF = 1 / (&~/Part/Components/Turret/FireInterval)
+				Range = &~/Part/Components/BulletEmitter/Bullet/Range
+				Arc = deg(&~/Part/Components/Turret/FiringArc)
+				Spread = deg(&~/Part/Components/BulletEmitter/Spread/1/BaseValue)
+				TurretSpeed = deg(&~/Part/Components/Turret/RotateSpeed)
+				ShotSpeed = &~/Part/Components/BulletEmitter/Bullet/Speed
+				PowerPerShot = (&~/Part/Components/BulletEmitter/AmmoUsed) / 1000
+				PowerPerSecond = (&PowerPerShot) * (&ROF)
+				ShotPowerUsage = [&../PowerPerShot, &../PowerPerSecond]
+			}
+		}
+	]
+}

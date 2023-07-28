@@ -1,0 +1,431 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/MissileAutoLoaderEmp"
+	IconNameKey = "Parts/MissileAutoLoaderEmpIcon"
+	ID = jbox1.auto.missile_auto_loader_emp
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/MissileAutoLoaderEmpDesc"
+	Cost = 20000
+	Size = [4, 1]
+	AllowedDoorLocations = []
+	CrewSpeedFactor = 0
+	SelectionPriority = 1
+	IsBuildable = &<../../secrets/debug_mode.txt>/nostalgia
+	MaxHealth = 4000
+	TypeCategories = [provides_emps, automated, autoloader]
+	FlipHRotate = [2, 1, 0, 3]
+	FlipVRotate = [0, 3, 2, 1]
+	ReceivableBuffs = [AutoReactorSupply]
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 16]
+	}
+	Components : ^/0/Components
+	{
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [PowerToggle, BuffToggle]
+			Mode = All
+		}
+
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		
+		BuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		
+		RepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = IsOperational
+			Duration
+			{
+				BaseValue = 1.5
+				BuffType = AutoReactorSupply
+				BuffMode = Divide
+			}
+			AutoStart = true
+			Repeats = true
+		}
+		ProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = IsOperational
+			ShowProgressFor = RepeatingTrigger
+			Invert = true
+		}
+		
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 1.5
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 1.5
+			GridDistance = 12
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 1.5
+			GridDistance = 16
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [2, 0.5]
+			ResetAnimationTrigger = RepeatingTrigger
+			OperationalToggle = IsOperational
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [4, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [4, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							// doodads_on1.png
+							"doodads_on2.png"
+							"doodads_on3.png"
+							"doodads_on4.png"
+							"doodads_on5.png"
+							"doodads_on6.png"
+							"doodads_on7.png"
+							"doodads_on8.png"
+							"doodads_on1.png"
+						]
+						Size = [4, 1]
+						AnimationStartTime = MinValue
+						ClampAnimation = true
+						AnimationInterval = 0.1
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [4, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [4, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [4, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [4, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			OperationalRoofWindows
+			{
+				Layer = "roof_windows"
+				DamageLevels
+				[
+					{
+						File = "roof_windows.png"
+						Size = [4, 1]
+					}
+					{
+						File = "roof_windows_33.png"
+						Size = [4, 1]
+					}
+					{
+						File = "roof_windows_66.png"
+						Size = [4, 1]
+					}
+				]
+			}
+			NonOperationalRoofWindows = &OperationalRoofWindows
+		}
+
+		OperationEffects
+		{
+			Type = ToggleEffects
+			Location = [2, 0.5]
+			Toggle = IsOperational
+			ToggledOnMediaEffects = &/COMMON_EFFECTS/MachinesOn
+			ToggledOffMediaEffects = &/COMMON_EFFECTS/MachinesOff
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			Location = [2, 2]
+			HitEffects
+			[
+				{
+					Type = ExplosiveAmmoDrain
+					AmmoType = battery
+					TotalDrain = 50000
+					Radius = 8
+					Slices = 1
+					Delay = .05
+					RadiusEffectScaleExponent = 0.5
+					Filter
+					{
+						Ships = true
+						Shields = true
+						Friendlies = true
+					}
+
+					MediaEffectsOnDrain
+					[
+						&<./Data/shots/electro_bolt/particles/electro_bolt_discharge.txt>
+						&<./Data/shots/missile_emp/particles/missile_emp_lightning.txt>
+
+						: /BASE_SOUNDS/AudioExterior
+						{
+							Sound = "./Data/shots/electro_bolt/discharge.wav"
+							Volume = 1
+							SpeedVariation = .2
+						}
+					]
+				}
+			]
+
+			MediaEffects
+			[
+				&<./Data/shots/missile_emp/particles/missile_emp_hit.txt>
+				&<./Data/shots/missile_emp/particles/missile_emp_shockwave.txt>
+			]
+		}
+
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [2, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [0.8, 0.8]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = BuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [1, 1]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [4, 1]
+		}
+		
+		PowerProvider1
+		{
+			Type = TriggeredEffects
+			Location = [0.5, 1.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = missile_part_emp
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Delay = 0.0
+					Filter
+					{
+						Ships = true
+						Shields = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+					}
+				}
+			]
+		}
+		
+		PowerProvider2
+		{
+			Type = TriggeredEffects
+			Location = [-0.5, 0.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = missile_part_emp
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Delay = 0.0
+					Filter
+					{
+						Ships = true
+						Shields = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+					}
+				}
+			]
+		}
+		
+		PowerProvider3
+		{
+			Type = TriggeredEffects
+			Location = [0.5, -0.5]
+			Trigger = RepeatingTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = missile_part_emp
+					AmountPerPart = -1
+					Radius = 0.1
+					Falloff = 0
+					Delay = 0.0
+					Filter
+					{
+						Ships = true
+						Shields = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+					}
+				}
+			]
+		}
+
+		ConvertEffects
+		{
+			Type = TriggeredEffects
+			Trigger = RepeatingTrigger
+			Location = [2, 1]
+			MediaEffects
+			[
+				: /BASE_SOUNDS/AudioInterior
+				{
+					Sound = "bullet_create.wav"
+					Volume = .1
+					Speed = .5
+					SpeedVariation = .05
+				}
+			]
+		}
+	}
+	Stats
+	{
+		EMPProduction = (&~/Part/StatsByCategory/0/Stats/MissileLoader/0) * (&~/Part/StatsByCategory/0/Stats/MissileLoader/1) //used by the missile stats mod
+		MissileProduction = (&EMPProduction) /9
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/MissileLoader"
+			Stats
+			{
+				SupplyPowerUse = &~/Part/Components/BuffProvider1/BuffAmount
+				MissileLoader = [-(&~/Part/Components/PowerProvider1/HitEffects/0/AmountPerPart) / (&~/Part/Components/RepeatingTrigger/Duration/BaseValue) , 3]
+				Frequency = 1/(&~/Part/Components/RepeatingTrigger/Duration/BaseValue)
+			}
+		}
+	]
+}

@@ -1,0 +1,165 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/Lantern"
+	IconNameKey = "Parts/LanternIcon"
+	ID = jbox1.auto.lantern
+	EditorGroup = "Misc"
+	DescriptionKey = "Parts/LanternDesc"
+	Cost = 50
+	Size = [1, 1]
+	SelectionPriority = 1
+	IsBuildable = &<../../secrets/debug_mode.txt>/debug
+	MaxHealth = 1000
+	CrewSpeedFactor = 0
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		BatteryStorage
+		{
+			Type = AmmoStorage
+			AmmoType = battery
+			MaxAmmo = 1000
+		}
+		
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			OperationalToggle = BatteryStorage
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							"roof_light1.png"
+							"roof_light2.png"
+							"roof_light3.png"
+							"roof_light4.png"
+							"roof_light5.png"
+							"roof_light4.png"
+							"roof_light3.png"
+							"roof_light2.png"
+						]
+						Size = [1, 1]
+						AnimationInterval = .1
+						AnimationStartTime = Zero
+					}
+				]
+			}
+			NonOperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						File = "roof_light1.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		BatterySprites
+		{
+			Type = AmmoSprites
+			Location = [.5, .5]
+			AmmoStorage = BatteryStorage
+			Layer = "doodads_low"
+			AmmoLevels
+			[
+				{
+					File = "battery0.png"
+					Size = [1, 1]
+				}
+				{
+					File = "battery1.png"
+					Size = [1, 1]
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+	}
+}

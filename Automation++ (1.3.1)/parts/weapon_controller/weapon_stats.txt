@@ -1,0 +1,100 @@
+Actions
+[
+	// Laser Blaster
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_small/laser_blaster_small.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/0/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Heavy Laser Blaster
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/laser_blaster_large/laser_blaster_large.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/2/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Standard Cannon
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_med/cannon_med.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/4/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Large Cannon
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/cannon_large/cannon_large.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/6/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Electro-Bolter
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/electro_bolter/electro_bolter.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/8/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Ion Beam
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/ion_beam_emitter/ion_beam_emitter.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/10/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// HE Missile Launcher
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/missile_launcher/missile_launcher.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/12/Overrides/RealPartCrew/Crew
+		}
+	}
+
+	// Railgun Loader
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/railgun_loader/railgun_loader.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/14/Overrides/RealPartCrew/Crew
+		}
+	}
+	// Flak
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/flak_cannon_large/flak_cannon_large.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/16/Overrides/RealPartCrew/Crew
+		}
+	}
+	// Tractor Beam
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.txt>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &<weapon_components.txt>/Actions/18/Overrides/RealPartCrew/Crew
+		}
+	}
+]

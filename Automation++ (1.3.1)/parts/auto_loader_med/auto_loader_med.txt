@@ -1,0 +1,435 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/AutoLoaderMed"
+	IconNameKey = "Parts/AutoLoaderMedIcon"
+	ID = jbox1.auto.auto_loader_med
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/AutoLoaderMedDesc"
+	Cost = 1500
+	Size = [2, 1]
+	MaxHealth = 1000
+	SelectionPriority = 1
+	SelectionTypeID = "power_loader"
+	TypeCategories = [power, automated, autoloader]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoReactorSupply, FtlActivation, PowerLoaderEfficiency, AutoLoaderEfficiency]
+	CrewSpeedFactor = 0
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 32]
+	}
+	Components : ^/0/Components
+	{
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		SupplyBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		FtlActivation
+		{
+			Type = BuffToggle
+			BuffType = FtlActivation
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [SupplyBuffToggle, PowerToggle]
+			Mode = All
+		}
+		SupplyOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = IsOperational}
+				{Toggle = FtlActivation, invert = true}
+			]
+			Mode = All
+		}
+		SupplyFtlOperational
+		{
+			Type = MultiToggle
+			Toggles = [IsOperational, FtlActivation]
+			Mode = All
+		}
+		FtlIndicator
+		{
+			Type = MultiToggle
+			Toggles = [SupplyFtlOperational]
+			Invert = true
+			Mode = All
+		}
+		SelfBuffProviderReactor
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 0 ; BuffType = AutoReactorSupply ; BuffMode = Add}
+			OperationalToggle = SupplyBuffToggle //prevent the timer from being stuck on infinity
+		}
+		SelfBuffProviderNode
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 1 ; BuffType = PowerLoaderEfficiency ; BuffMode = Multiply}
+		}
+		RepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = IsOperational
+			Duration = {BaseValue = 1 ; BuffType = AutoLoaderEfficiency ; BuffMode = Divide}
+			AutoStart = true
+			Repeats = true
+		}
+		DelayedTrigger
+		{
+            Type = DelayTrigger
+            Trigger = RepeatingTrigger
+            Delay = 26/30 //time needed for animation
+        }
+		ProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = SupplyOperational
+			ShowProgressFor = RepeatingTrigger
+			Invert = true
+		}
+		FtlRepeatingTrigger
+		{
+			Type = Timer
+			OperationalToggle = SupplyFtlOperational
+			Duration = &~/Part/Components/RepeatingTrigger/Duration/BaseValue
+			AutoStart = true
+			Repeats = true
+		}
+		FtlDelayedTrigger
+		{
+            Type = DelayTrigger
+            Trigger = FtlRepeatingTrigger
+            Delay = 0.8 //time needed for animation
+        }
+		FtlProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = SupplyFtlOperational
+			ShowProgressFor = FtlRepeatingTrigger
+			Invert = true
+		}
+		GraphicTrigger
+		{
+			Type = MultiTrigger
+			Triggers = [RepeatingTrigger, FtlRepeatingTrigger]
+		}
+		PowerProvider1
+		{
+			Type = TriggeredEffects
+			Location = [0.5, 1.5]
+			Trigger = DelayedTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = -1000
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+						ExcludePartCategories = [ftl]
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+				}
+			]
+		}
+		PowerProvider2
+		{
+			Type = TriggeredEffects
+			Location = [1.5, 1.5]
+			Trigger = DelayedTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = -1000
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+						ExcludePartCategories = [ftl]
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+				}
+			]
+		}
+		FtlPowerProvider1
+		{
+			Type = TriggeredEffects
+			Location = [0.5, 1.5]
+			Trigger = FtlDelayedTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = -1000
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+						OnlyPartCategories = [ftl]
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+				}
+			]
+		}
+		FtlPowerProvider2
+		{
+			Type = TriggeredEffects
+			Location = [1.5, 1.5]
+			Trigger = FtlDelayedTrigger
+			HitEffects
+			[
+				{
+					Type = AreaAmmoDrain
+					AmmoType = battery
+					AmountPerPart = -1000
+					Radius = 0.1
+					Falloff = 0
+					Filter
+					{
+						Ships = true
+						Friendlies = true
+						IgnoreInvulnerability = true
+						Enemies = false
+						OnlyPartCategories = [ftl]
+					}
+					MediaEffectsOnDrainFactor = 1
+					MediaEffectsOnDrain = &/COMMON_EFFECTS/PowerDeliver
+				}
+			]
+		}
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 2
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 2
+			GridDistance = 12
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 2
+			GridDistance = 16
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		
+		Graphics
+		{
+			Type = Graphics
+			Location = [1, 0.5]
+			OperationalToggle = IsOperational
+			ResetAnimationTrigger = GraphicTrigger
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						AnimationFiles
+						[
+							//"doodads_on.png"
+							"doodads1.png"
+							"doodads2.png"
+							"doodads3.png"
+							"doodads4.png"
+							"doodads5.png"
+							"doodads6.png"
+							"doodads7.png"
+							"doodads8.png"
+							"doodads9.png"
+							"doodads10.png"
+							"doodads11.png"
+							"doodads12.png"
+							"doodads_on.png" // Loop back to beginning and clamp there.
+						]
+						Size = [2, 1]
+						AnimationInterval = 1/15
+						AnimationStartTime = MinValue
+						ClampAnimation = true
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads_off.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [2, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [2, 1]
+					}
+				]
+			}
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [1, .5]
+		}
+		
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [1, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [0.8, 0.8]
+					}
+				}
+
+				// Out of power.
+				{
+					Toggle = SupplyBuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [0.8, 0.8]
+					}
+				}
+				//Ftl activated
+				{
+					Toggle = FtlIndicator
+					AtlasSprite
+					{
+						File = &/INDICATORS/FtlActivated
+						Size = [0.8, 0.8]
+					}
+				}
+			]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [2, 1]
+		}
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/PowerLoader"
+			Stats
+			{
+				SupplyPowerUse = &~/Part/Components/BuffProvider1/BuffAmount
+				PowerLoader = [-(&~/Part/Components/PowerProvider1/HitEffects/0/AmountPerPart) / (&~/Part/Components/RepeatingTrigger/Duration/BaseValue) /1000 , 2]
+				Frequency = 1/(&~/Part/Components/RepeatingTrigger/Duration/BaseValue)
+			}
+		}
+	]
+}

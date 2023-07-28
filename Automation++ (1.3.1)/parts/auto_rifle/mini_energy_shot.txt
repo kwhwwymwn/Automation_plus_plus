@@ -1,0 +1,140 @@
+ID = jbox1.auto.mini_laser_shot
+Range = { BaseValue=200; BuffType=AutoWeaponRange; BuffMode=Multiply; }
+IdealRange = [{ BaseValue=175; BuffType=AutoWeaponRange; BuffMode=Multiply; }, &0]
+Speed = 360
+ReceivableBuffs = [AutoWeaponRange]
+
+Components
+{
+	Physics
+	{
+		Type = CirclePhysics
+		Radius = 0.01
+		Density = 0.0001
+	}
+
+	Death
+	{
+		Type = DeathByLifetime
+		// Lifetime will be auto-calculated based on range and speed.
+	}
+	
+	Targetable
+	{
+		Type = Targetable
+		Health = 200
+		TargetCategory = "laser"
+	}
+
+	Sprite
+	{
+		Type = AnimatedSprite
+		Animation
+		{
+			AtlasSprite
+			{
+				Texture = "laser.png"
+				Size = [1.75, 1.75]
+			}
+			FrameCount = 8
+			FrameSize = [128, 128]
+			FramesPerRow = 2
+			FramesPerSecond = 60
+		}
+	}
+
+	MediaEffects
+	{
+		Type = MediaEffects
+		InheritVelocityFrom = Physics
+		MediaEffects
+		[
+			&<./Data/shots/electro_bolt/particles/electro_bolt_shot_glow.txt>
+		]
+	}
+
+	Hit
+	{
+		Type = PenetratingHit
+		FactorEffectsWith = Targetable
+		//PhysicsComponent = Physics
+
+		HitShield = &HitOperational
+		HitOperational
+		{
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 1500
+				}
+				{
+					Type = Impulse
+					Impulse = 10
+				}
+			]
+
+			MediaEffects
+			[
+				&<./Data/shots/electro_bolt/particles/electro_bolt_hit.txt>
+				&<./Data/shots/electro_bolt/particles/electro_bolt_sparks.txt>
+				&<./Data/shots/electro_bolt/particles/electro_bolt_flash.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "small_laser_hit.wav"
+					Volume = .4
+					SpeedVariation = .4
+				}
+
+				: /BASE_SHAKE
+				{
+					ShakeAmount = .03
+					Duration = .3
+				}
+			]
+		}
+		HitStructural
+		{
+			HitEffects
+			[
+				{
+					Type = Damage
+					Damage = 750
+				}
+				{
+					Type = Impulse
+					Impulse = 5
+				}
+			]
+
+			MediaEffects
+			[
+				&<./Data/shots/electro_bolt/particles/electro_bolt_sparks.txt>
+
+				: /BASE_SOUNDS/AudioExterior
+				{
+					Sound = "small_laser_hit.wav"
+					Volume = .3
+					SpeedVariation = .4
+				}
+			]
+		}
+		PenetratingOperational
+		{
+			// No effect.
+		}
+		PenetratingStructural
+		{
+			// No effect.
+		}
+		FinishedPenetratingOperational
+		{
+			// No effect.
+		}
+		FinishedPenetratingStructural
+		{
+			// No effect.
+		}
+	}
+}

@@ -1,0 +1,256 @@
+Part : /BASE_PART
+{
+	NameKey = "Parts/ApexNodeP"
+	IconNameKey = "Parts/ApexNodePIcon"
+	ID = kwhwwymwn.auto.apex_node_power
+	EditorGroup = "Drones"
+	DescriptionKey = "Parts/ApexNodePDesc"
+	Cost = 7500
+	AIValueFactor = 10
+	Size = [1, 1]
+	MaxHealth = 4000
+	Flammable = false
+	SelectionPriority = 0
+	TypeCategories = [apex_node, node, bounty_objective]
+	AffectsValidityOfCategories = [apex_node, need_node]
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	AllowedDoorLocations = []
+	CreatePartPerTileWhenDestroyed = ""
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [64, 64]
+	}
+	Components : ^/0/Components
+	{
+		// the crew member makes it so that the game doesn't consider drones to be junk
+		CrewSource
+		{
+			Type = CrewSource
+			Crew = 1
+		}
+		CrewLocation
+		{
+			Type = CrewLocation
+			Location = [0.5, 0.5]
+			Rotation = 180d
+		}
+		PartCrew
+		{
+			Type = PartCrew
+			Crew = 1
+			DefaultPriority = 10
+			CrewDestinations
+			[
+				[0.5, 0.5]
+			]
+			CrewLocations
+			[
+				CrewLocation
+			]
+		}
+		ApexActivationBuff
+		{
+			Type = GridBuffProvider
+			BuffType = ApexActivation
+			BuffAmount = 1
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+		}
+		//specialization
+		//activated autoreactor supply buff (auto reactors give full efficiency for auto loaders)
+		StartTrigger
+		{
+			Type = UITrigger
+			TriggerID = "node_power_supply"
+			OperationalToggle = TimerReload
+		}
+		PowerSupplyActivation
+		{
+			Type = TriggeredToggle
+			OnTrigger = StartTrigger
+			OffTrigger = TimerDuration
+			StartsOn = false
+		}
+		TimerDuration
+		{
+			Type = Timer
+			Duration = 12
+			AutoStart = false
+			StartTrigger = StartTrigger
+		}
+		ProgressBarPowerSupply
+		{
+			Type = ProgressBar
+			OperationalToggle = PowerSupplyActivation
+			ShowProgressFor = TimerDuration
+			LowColor = [255, 255, 0]
+			HighColor = [255, 255, 0]
+			FullColor = [255, 255, 0]
+		}
+		TimerReload
+		{
+			Type = Timer
+			Duration = 48
+			AutoStart = true
+			StartTrigger = TimerDuration
+		}
+		ProgressBarTimer
+		{
+			Type = ProgressBar
+			OperationalToggle = PowerSupplyActivation
+			InvertOperationalToggle = true
+			ShowProgressFor = TimerReload
+			LowColor = [255, 255, 0]
+			HighColor = [255, 255, 0]
+			FullColor = [255, 255, 0]
+			Invert = true
+		}
+		FullSupplyBuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = FullSupplyBuff
+			BuffAmount = 1
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = PowerSupplyActivation
+		}
+		HiddenComponents
+		{
+			Type = ToggledComponents
+			Toggle = PowerSupplyActivation
+			Components
+			{
+				DronePowerActivatedBuffProvider
+				{
+					Type = GridBuffProvider
+					BuffType = DronePower
+					BuffAmount = 100%
+					GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+					AllowDiagonals = true
+				}
+			}
+		}
+		//powerloaders efficiency buff
+		PowerLoaderBuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = PowerLoaderEfficiency
+			BuffAmount = 20%
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+		}
+		//small drone core power load buff
+		DronePowerBuffProvider
+		{
+			Type = GridBuffProvider
+			BuffType = DronePower
+			BuffAmount = 25%
+			GridDistance = &<../../secrets/debug_mode.txt>/MaxGridDistance
+			AllowDiagonals = true
+			OperationalToggle = PowerSupplyActivation
+			InvertOperationalToggle = true
+		}
+		
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+		
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+	}
+	Stats
+	{
+		PowerLoaderBuff = (&~/Part/Components/PowerLoaderBuffProvider/BuffAmount) *100
+		DronePowerBuff = (&~/Part/Components/DronePowerBuffProvider/BuffAmount) *100
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/ActivatedAbility"
+			Stats
+			{
+				DronePowerBuff = (&~/Part/Components/HiddenComponents/Components/DronePowerActivatedBuffProvider/BuffAmount) *100
+				Duration = &~/Part/Components/TimerDuration/Duration
+				ReloadTime = &~/Part/Components/TimerReload/Duration
+			}
+		}
+	]
+}
