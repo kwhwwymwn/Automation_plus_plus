@@ -1,5 +1,5 @@
 # Automation++
-a mod for Cosmoteer
+a mod for [Cosmoteer](https://cosmoteer.net/)
 
 ### Version 1.3.1 for Cosmoteer 0.15.17
 This is the last classic version of the mod
