@@ -26,14 +26,16 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### auto rifle
             - ##### auto loaders
             - ##### auto reactors
+                - update graphics code after doing sprites
             - ##### capacitor
+                - find a new name : automated capacitor ?
             - ##### circuit breaker
             - ##### console
             - ##### coupling wires
             - ##### drone controller
             - ##### drone cores
             - ##### drone ftl
-                - update vanilla ftl as needed
+                - update vanilla ftl as needed to give them the same features
             - ##### ftl resonator
             - ##### internal structure
             - ##### nodes
@@ -59,6 +61,8 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### auto rifle : mix classic sprites and point defense
             - ##### auto loaders : don't spend too much time on ammo and missile auto loader as size might change when grinders get added
             - ##### auto reactors : regular reactors with extra stuff
+                - check schematic in secret folder
+                - bonus : differents lights for each modes
             - ##### capacitor
             - ##### circuit breaker
             - ##### console : 2x2 control room with extra stuff

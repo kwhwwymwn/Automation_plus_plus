@@ -1,4 +1,4 @@
-Part : <ships/terran/base_part_terran.rules>/Part // ./Data/ ?
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
 {
 	NameKey = "Parts/WeaponController"
 	IconNameKey = "Parts/WeaponControllerIcon"
