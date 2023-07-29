@@ -13,6 +13,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
     - #### A) update code to not crash the game
         - ##### buffs : check if good
         - ##### gui : find mod adding gui elements as examples
+        - ##### ai : find file for ai logic (triggers and toggles)
         - ##### decals : check if good
         - ##### strings : check if good
         - ##### parts
@@ -38,7 +39,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### drone ftl
                 - update vanilla ftl as needed to give them the same features
             - ##### ftl resonator
-            - ##### internal structure
+            - ##### internal structure : check if good
             - ##### nodes
             - ##### scout shield
                 - SelectionTypeID = "shield" > "shield_gen"
@@ -73,7 +74,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### drone cores
             - ##### drone ftl : regular ftl but smaller
             - ##### ftl resonator
-            - ##### internal structure : structure inside coridors
+            - ##### internal structure : done
             - ##### nodes
             - ##### scout shield : large shield but very small
             - ##### semiconducting wires

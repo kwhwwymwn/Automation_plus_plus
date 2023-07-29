@@ -1,0 +1,118 @@
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
+{
+	NameKey = "Parts/InternalStructure"
+	IconNameKey = "Parts/InternalStructureIcon"
+	ID = jbox1.auto.internal_structure
+	DescriptionKey = "Parts/InternalStructureDesc"
+	//Cost = 50
+	Resources // 50 credits
+	[
+		[steel, 2]
+	]
+	AIValueFactor = 0
+	Size = [1, 1]
+	TypeCategories = [internal_structure]
+	SelectionTypeID = "structure"
+	Density = .5
+	MaxHealth = 1000
+	Flammable = false
+	CreatePartPerTileWhenGrabbed = ""
+	DestroyedPartHealthFraction = 25%
+	InitialPenetrationResistance = .5
+	CrewSpeedFactor = 0
+	IsWalled = false // true
+	IsSelfDestructible = false
+	IsRotateable = false
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	AllowedDoorLocations = []
+	GeneratorRequiresDoor = false
+	NoAutoDoors = true
+	IgnoreRotationForMirroredSelection = true
+	
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		WallsBlend : <./Data/ships/terran/walls/walls.txt>
+		{
+			Type = BlendSprite
+			Location = [.5, .5]
+			BlendsWithCategories = [internal_structure]
+		}
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				RandomUVRotation = true
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				RandomUVRotation = true
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						NormalsFile = "roof_normals.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						NormalsFile = "roof_normals_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						NormalsFile = "roof_normals_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/StructureDestroyed
+			Location = [.5, .5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+		
+		BlueprintWalls : <./Data/ships/terran/walls/blueprint_walls.txt>
+		{
+			Location = [.5, .5]
+			BlendsWithCategories = [internal_structure]
+		}
+	}
+}
