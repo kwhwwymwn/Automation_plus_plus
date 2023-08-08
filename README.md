@@ -68,6 +68,11 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
                 - bonus : differents lights for each modes
             - ##### capacitor
             - ##### circuit breaker
+                - blueprint : green
+                - roof sprites
+                - normal map
+                - doodads for lights
+                - damage levels
             - ##### console : 2x2 control room with extra stuff
             - ##### coupling wires
             - ##### drone controller : 3x3 control room with extra stuff
