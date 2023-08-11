@@ -36,6 +36,9 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### coupling wires
             - ##### drone controller
             - ##### drone cores
+                - small
+                - large : update graphics then graphic code ; check if good
+                - autonomous
             - ##### drone ftl
                 - update vanilla ftl as needed to give them the same features
             - ##### ftl resonator
