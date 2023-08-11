@@ -38,7 +38,7 @@ Parts
 	
 	//drones and stuff for drones
 //	&<drone_core_small/drone_core_small.rules>/Part
-//	&<drone_core_large/drone_core_large.rules>/Part
+	&<drone_core_large/drone_core_large.rules>/Part
 	&<nodes/apex_node.rules>/Part
 //	&<nodes/apex_node_offense.rules>/Part
 //	&<nodes/apex_node_power.rules>/Part
