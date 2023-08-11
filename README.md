@@ -41,6 +41,8 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### ftl resonator
             - ##### internal structure : check if good
             - ##### nodes
+                - check if basic node good
+                - update other nodes
             - ##### scout shield
                 - SelectionTypeID = "shield" > "shield_gen"
             - ##### semiconducting wires
@@ -84,6 +86,8 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### ftl resonator
             - ##### internal structure : done
             - ##### nodes
+                - all sprites
+                - special sprites for each nodes
             - ##### scout shield : large shield but very small
             - ##### semiconducting wires
             - ##### small sensor : mix big sensor sprites with radar from control rooms

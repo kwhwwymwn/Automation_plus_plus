@@ -13,7 +13,7 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 	Size = [1, 1]
 	TypeCategories = [uses_power]
 	SelectionPriority = 1
-	IsBuildable = &<../../secrets/debug_mode.txt>/debug
+	IsBuildable = &<../../secrets/debug_mode.rules>/debug
 	MaxHealth = 1000
 	CrewSpeedFactor = 0
 	ReceivableBuffs : ^/0/ReceivableBuffs []

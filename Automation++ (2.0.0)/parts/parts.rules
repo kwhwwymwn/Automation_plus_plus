@@ -4,11 +4,11 @@ Parts
 	&<internal_structure/internal_structure.txt>/Part
 	
 	//auto reactors, add-ons, and wires
-//	&<auto_reactor_small/auto_reactor_small.txt>/Part
-//	&<auto_reactor_med/auto_reactor_med.txt>/Part
-//	&<auto_reactor_large/auto_reactor_large.txt>/Part
+	&<auto_reactor_small/auto_reactor_small.txt>/Part
+	&<auto_reactor_med/auto_reactor_med.txt>/Part
+	&<auto_reactor_large/auto_reactor_large.txt>/Part
 //	&<console/console.txt>/Part
-//	&<transformer/transformer.txt>/Part
+	&<transformer/transformer.txt>/Part
 //	&<circuit_breaker/circuit_breaker.txt>/Part
 //	&<capacitor/capacitor.txt>/Part
 //	&<coupling_wires/coupling_wire.txt>/Part
@@ -39,7 +39,7 @@ Parts
 	//drones and stuff for drones
 //	&<drone_core_small/drone_core_small.txt>/Part
 //	&<drone_core_large/drone_core_large.txt>/Part
-//	&<nodes/apex_node.txt>/Part
+	&<nodes/apex_node.txt>/Part
 //	&<nodes/apex_node_offense.txt>/Part
 //	&<nodes/apex_node_power.txt>/Part
 //	&<nodes/apex_node_scout.txt>/Part
