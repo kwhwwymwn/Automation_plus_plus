@@ -710,7 +710,7 @@ Actions
 		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats"
 		Overrides
 		{
-			CrewRequired = &<weapon_components.txt>/Actions/36/Overrides/RealPartCrew/Crew
+			CrewRequired = &~/Actions/36/Overrides/RealPartCrew/Crew
 		}
 	}	
 ]
