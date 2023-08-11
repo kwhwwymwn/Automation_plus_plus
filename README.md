@@ -28,7 +28,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### auto rifle
             - ##### auto loaders
             - ##### auto reactors
-                - update graphics code after doing sprites
+                - graphics code after doing sprites
             - ##### capacitor
                 - find a new name : automated capacitor ?
             - ##### circuit breaker
@@ -50,6 +50,9 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
                 - graphics code
             - ##### weapon controller : check if good
                 - update graphics code after finishing sprites
+            - ##### lantern : check if good
+                - new trigger ID
+                - battery sprites graphic code
 
     - #### B) remake sprites in modern style
         - ##### buffs : wrong shade of green, add shadow
@@ -96,6 +99,8 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
                 - normal map if different than roof light 
                 - merge floor, optimize doodads
                 - damage levels
+            - ##### lantern : check if good
+                - battery sprites if needed
 
 - ### II) porting and balancing
     - #### A) rewrite parts to make them useful and not op

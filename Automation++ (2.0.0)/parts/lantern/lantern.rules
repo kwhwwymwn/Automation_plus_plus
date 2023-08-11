@@ -1,0 +1,401 @@
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
+{
+	NameKey = "Parts/Lantern"
+	IconNameKey = "Parts/LanternIcon"
+	ID = jbox1.auto.lantern
+	EditorGroup = "Utilities"
+	DescriptionKey = "Parts/LanternDesc"
+	Resources
+	[
+		[steel, 4]
+		[coil, 1]
+	]
+	Size = [1, 1]
+	TypeCategories = [uses_power]
+	SelectionPriority = 1
+	IsBuildable = &<../../secrets/debug_mode.txt>/debug
+	MaxHealth = 1000
+	CrewSpeedFactor = 0
+	ReceivableBuffs : ^/0/ReceivableBuffs []
+	AllowedDoorLocations = []
+	ForceBrushCompatibility = false
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		BatteryStorage
+		{
+			Type = ResourceStorage
+			ResourceType = battery
+			MaxResources = 1000
+			ReceiveResourceMediaEffects = &/COMMON_EFFECTS/PowerDeliver
+		}
+		
+		EmptyBatteryStorageTrigger
+		{
+			Type = UITrigger
+			TriggerID = "detonate" // replace with empty battery storage trigger
+		}
+
+		EmptyBatteryStorageEffects
+		{
+			Type = TriggeredEffects
+			Trigger = EmptyBatteryStorageTrigger
+			HitEffects
+			[
+				{
+					Type = ResourceDrain
+					ResourceType = battery
+					Amount = 10000
+					Filter
+					{
+						Friendlies = true
+						IgnoreInvulnerability = true
+					}
+				}
+			]
+		}
+		
+		ColorPicker
+		{
+			Type = UIColor
+			ColorID = "roof_light"
+			Default = White
+		}
+
+		LightStrength
+		{
+			Type = UIToggle
+			ToggleID = "light_strength"
+			Default = 0
+		}
+
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			OperationalToggle = BatteryStorage
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalLighting
+			{
+				Layer = "lights_add"
+				DamageLevels
+				[
+					{
+						File = "lights.png"
+						Size = [1, 1]
+					}
+					{
+						File = "lights_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "lights_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						NormalsFile = "roof_normals.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						NormalsFile = "roof_normals_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						NormalsFile = "roof_normals_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalRoofDoodad
+			{
+				Layer = "roof_doodads"
+				DamageLevels
+				[
+					{
+						File = "headlight_white.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		LightLowToggle
+		{
+			Type = ModeToggle
+			Mode = LightStrength
+			OnMode = 0
+		}
+		LightLowComponents
+		{
+			Type = ToggledComponents
+			Toggle = LightLowToggle
+			Components
+			{
+				ColoredGraphics
+				{
+					Type = Graphics
+					Location = [.5, .5]
+					OperationalToggle = BatteryStorage
+					GetColorFrom = ColorPicker
+					OperationalLighting
+					{
+						Layer = "lights_add"
+						DamageLevels
+						[
+							{
+								File = "lights_colored.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_33.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_66.png"
+								Size = [1, 1]
+							}
+						]
+					}
+					OperationalRoofDoodad
+					{
+						Layer = "roof_doodads"
+						DamageLevels
+						[
+							{
+								File = "headlight_colored.png"
+								Size = [4, 4]
+							}
+						]
+					}
+					OperationalRoofLighting
+					{
+						Layer = "roof_lights_fancy"
+						DamageLevels
+						[
+							{
+								File = "./Data/ships/common/light_blob.png"
+								Size = [5, 5]
+								Z = 0.5 // Controls the "height" of the light for the purposes of normal mapping. Set to -1 (or any negative number) to disable normal lighting for this light.
+								VertexColor = [255*1, 255*1, 255*1]
+							}
+						]
+					}
+				}
+			}
+		}
+
+		LightMedToggle
+		{
+			Type = ModeToggle
+			Mode = LightStrength
+			OnMode = 1
+		}
+		LightMedComponents
+		{
+			Type = ToggledComponents
+			Toggle = LightMedToggle
+			Components
+			{
+				ColoredGraphics
+				{
+					Type = Graphics
+					Location = [.5, .5]
+					OperationalToggle = BatteryStorage
+					GetColorFrom = ColorPicker
+					OperationalLighting
+					{
+						Layer = "lights_add"
+						DamageLevels
+						[
+							{
+								File = "lights_colored.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_33.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_66.png"
+								Size = [1, 1]
+							}
+						]
+					}
+					OperationalRoofDoodad
+					{
+						Layer = "roof_doodads"
+						DamageLevels
+						[
+							{
+								File = "headlight_colored.png"
+								Size = [4*1.5, 4*1.5]
+							}
+						]
+					}
+					OperationalRoofLighting
+					{
+						Layer = "roof_lights_fancy"
+						DamageLevels
+						[
+							{
+								File = "./Data/ships/common/light_blob.png"
+								Size = [5*1.5, 5*1.5]
+								Z = 0.5 // Controls the "height" of the light for the purposes of normal mapping. Set to -1 (or any negative number) to disable normal lighting for this light.
+								VertexColor = [255*1, 255*1, 255*1]
+							}
+						]
+					}
+				}
+			}
+		}
+
+		LightHighToggle
+		{
+			Type = ModeToggle
+			Mode = LightStrength
+			OnMode = 2
+		}
+		LightHighComponents
+		{
+			Type = ToggledComponents
+			Toggle = LightHighToggle
+			Components
+			{
+				ColoredGraphics
+				{
+					Type = Graphics
+					Location = [.5, .5]
+					OperationalToggle = BatteryStorage
+					GetColorFrom = ColorPicker
+					OperationalLighting
+					{
+						Layer = "lights_add"
+						DamageLevels
+						[
+							{
+								File = "lights_colored.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_33.png"
+								Size = [1, 1]
+							}
+							{
+								File = "lights_colored_66.png"
+								Size = [1, 1]
+							}
+						]
+					}
+					OperationalRoofDoodad
+					{
+						Layer = "roof_doodads"
+						DamageLevels
+						[
+							{
+								File = "headlight_colored.png"
+								Size = [4*2, 4*2]
+							}
+						]
+					}
+					OperationalRoofLighting
+					{
+						Layer = "roof_lights_fancy"
+						DamageLevels
+						[
+							{
+								File = "./Data/ships/common/light_blob.png"
+								Size = [5*2, 5*2]
+								Z = 0.5 // Controls the "height" of the light for the purposes of normal mapping. Set to -1 (or any negative number) to disable normal lighting for this light.
+								VertexColor = [255*1, 255*1, 255*1]
+							}
+						]
+					}
+				}
+			}
+		}
+		/*
+		BatterySprites
+		{
+			Type = ResourceSprites
+			Location = [.5, .5]
+			ResourceStorage = BatteryStorage
+			Layer = "doodads_low"
+			ResourceLevels
+			[
+				{
+					File = "batteries.png"
+					Size = [1, 1]
+				}
+			]
+		}
+		*/
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+	}
+}

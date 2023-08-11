@@ -3,7 +3,7 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 	NameKey = "Parts/SensorSmall"
 	IconNameKey = "Parts/SensorSmallIcon"
 	ID = jbox1.auto.drone_sensor
-	EditorGroup = "Misc"
+	EditorGroup = "Utilities"
 	DescriptionKey = "Parts/SensorSmallDesc"
 	//Cost = 5000
 	Resources // 5000 credits

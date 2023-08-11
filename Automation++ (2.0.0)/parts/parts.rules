@@ -1,7 +1,7 @@
 Parts
 [
 	//basic
-//	&<internal_structure/internal_structure.txt>/Part
+	&<internal_structure/internal_structure.txt>/Part
 	
 	//auto reactors, add-ons, and wires
 //	&<auto_reactor_small/auto_reactor_small.txt>/Part
@@ -53,7 +53,7 @@ Parts
 	
 	//misc
 //	&<sensor_small/sensor.txt>/Part
-//	&<lantern/lantern.txt>/Part
+	&<lantern/lantern.txt>/Part
 	
 	//weapons and defenses
 //	&<auto_gun/auto_gun.txt>/Part
