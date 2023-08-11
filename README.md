@@ -27,6 +27,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### auto laser
             - ##### auto rifle
             - ##### auto loaders
+                - advanced auto loader : check if good
             - ##### auto reactors
                 - graphics code after doing sprites
             - ##### capacitor

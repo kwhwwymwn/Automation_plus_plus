@@ -22,7 +22,7 @@ Parts
 	//auto loaders
 //	&<auto_loader_small/auto_loader_small.rules>/Part
 //	&<auto_loader_med/auto_loader_med.rules>/Part
-//	&<auto_loader_adv/auto_loader_adv.rules>/Part
+	&<auto_loader_adv/auto_loader_adv.rules>/Part
 //	&<auto_loader_compact/auto_loader_compact.rules>/Part
 //	&<auto_loader_ammo/auto_loader_ammo.rules>/Part
 //	&<auto_loader_missile_he/auto_loader_missile_he.rules>/Part

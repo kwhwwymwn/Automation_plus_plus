@@ -1,0 +1,426 @@
+Part : <./Data/ships/terran/base_part_terran.rules>/Part
+{
+	NameKey = "Parts/AdvAutoLoader"
+	IconNameKey = "Parts/AdvAutoLoaderIcon"
+	ID = jbox1.auto.adv_power_auto_loader
+	EditorGroup = "AutoPower"
+	DescriptionKey = "Parts/AdvAutoLoaderDesc"
+	//Cost = 1500
+	Resources
+	[
+		[steel, 4]
+		[coil2, 2]
+		[coil2, 4]
+	]
+	Size = [1, 1]
+	MaxHealth = 1000
+	SelectionPriority = 1
+	SelectionTypeID = "power_loader"
+	TypeCategories = [power, automated, autoloader]
+	ReceivableBuffs : ^/0/ReceivableBuffs [AutoReactorSupply, FtlActivation, PowerLoaderEfficiency, AutoLoaderEfficiency]
+	CrewSpeedFactor = 0
+	IgnoreRotationForMirroredSelection = true
+	IsRotateable = false
+	AllowedDoorLocations = []
+	EditorIcon
+	{
+		Texture
+		{
+			File = "icon.png"
+			SampleMode = Linear
+		}
+		Size = [32, 32]
+	}
+	Components : ^/0/Components
+	{
+		PowerToggle
+		{
+			Type = UIToggle
+			ToggleID = "on_off"
+			Default = 1
+		}
+		SupplyBuffToggle
+		{
+			Type = BuffToggle
+			BuffType = AutoReactorSupply
+		}
+		FtlActivation
+		{
+			Type = BuffToggle
+			BuffType = FtlActivation
+		}
+		IsOperational
+		{
+			Type = MultiToggle
+			Toggles = [SupplyBuffToggle, PowerToggle]
+			Mode = All
+		}
+		SupplyOperational
+		{
+			Type = MultiToggle
+			Toggles
+			[
+				{Toggle = IsOperational}
+				{Toggle = FtlActivation, invert = true}
+			]
+			Mode = All
+		}
+		SupplyFtlOperational
+		{
+			Type = MultiToggle
+			Toggles = [IsOperational, FtlActivation]
+			Mode = All
+		}
+		FtlIndicator
+		{
+			Type = MultiToggle
+			Toggles = [SupplyFtlOperational]
+			Invert = true
+			Mode = All
+		}
+		
+		BuffProvider1
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty1
+			BuffAmount = 1
+			GridDistance = 8
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider2
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty2
+			BuffAmount = 1
+			GridDistance = 12
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		BuffProvider3
+		{
+			Type = GridBuffProvider
+			BuffType = AutoReactorSupplyPenalty3
+			BuffAmount = 1
+			GridDistance = 16
+			AllowDiagonals = true
+			OperationalToggle = PowerToggle
+		}
+		
+		//Proxies
+		ProxyTop
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [0, -1]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				ExcludeCategories = [ftl]
+			}
+		}
+		ProxyRight
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [1, 0]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				ExcludeCategories = [ftl]
+			}
+		}
+		ProxyLeft
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [-1, 0]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				ExcludeCategories = [ftl]
+			}
+		}
+		ProxyBottom
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [0, 1]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				ExcludeCategories = [ftl]
+			}
+		}
+		MultiStorage
+		{
+			Type = MultiResourceStorage
+			OperationalToggle = SupplyOperational
+			ResourceType = battery
+			ResourceStorages = [ProxyTop, ProxyRight, ProxyLeft, ProxyBottom]
+			AddMode = DistributeEvenly
+		}
+		InternalBatteryStorage
+		{
+			Type = ResourceStorage
+			ResourceType = battery
+			MaxResources = 2008 //no power loss in case of leftover that can't be moved by the power provider
+			InitToMaxResources = 0
+			IsDrainable = false
+		}
+		SelfBuffProviderReactor
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 0 ; BuffType = AutoReactorSupply ; BuffMode = Add}
+			OperationalToggle = SupplyBuffToggle //prevent the timer from being stuck on infinity
+		}
+		SelfBuffProviderNode
+		{
+			Type = SelfBuffProvider
+			BuffType = AutoLoaderEfficiency
+			BuffAmount = {BaseValue = 1 ; BuffType = PowerLoaderEfficiency ; BuffMode = Multiply}
+		}
+		PowerConverter
+		{
+			Type = ResourceConverter
+			OperationalToggle = SupplyOperational
+			ToStorage = InternalBatteryStorage
+			ToQuantity = 2000
+			Interval = {BaseValue = 2 ; BuffType = AutoLoaderEfficiency ; BuffMode = Divide}
+		}
+		PowerProvider
+		{
+			Type = ResourceConverter
+			FromStorage = InternalBatteryStorage
+			ToStorage = MultiStorage
+			FromQuantity = 12
+			ToQuantity = 12 // share power equally given any number of proxy up to 4
+		}
+		ProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = SupplyOperational
+			ShowProgressFor = PowerConverter
+		}
+		
+		//ProxiesFtl
+		ProxyTopFtl
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [0, -1]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				Categories = [ftl]
+			}
+		}
+		ProxyRightFtl
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [1, 0]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				Categories = [ftl]
+			}
+		}
+		ProxyLeftFtl
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [-1, 0]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				Categories = [ftl]
+			}
+		}
+		ProxyBottomFtl
+		{
+			Type = ResourceStorageProxy
+			ResourceType = battery
+			PartLocation = [0, 1]
+			ComponentID = BatteryStorage
+			PartCriteria
+			{
+				Categories = [ftl]
+			}
+		}
+		MultiStorageFtl
+		{
+			Type = MultiResourceStorage
+			OperationalToggle = SupplyFtlOperational
+			ResourceType = battery
+			ResourceStorages = [ProxyTopFtl, ProxyRightFtl, ProxyLeftFtl, ProxyBottomFtl]
+			AddMode = DistributeEvenly
+		}
+		FtlPowerProvider
+		{
+			Type = ResourceConverter
+			OperationalToggle = SupplyFtlOperational
+			ToStorage = MultiStorageFtl
+			ToQuantity = 2000
+			Interval = 2
+		}
+		FtlProgressBar
+		{
+			Type = ProgressBar
+			OperationalToggle = SupplyFtlOperational
+			ShowProgressFor = FtlPowerProvider
+		}
+		
+		
+		
+		Graphics
+		{
+			Type = Graphics
+			Location = [.5, .5]
+			Floor
+			{
+				Layer = "floors"
+				DamageLevels
+				[
+					{
+						File = "floor.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "floor_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			OperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads on.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			NonOperationalDoodad
+			{
+				Layer = "doodads_high"
+				DamageLevels
+				[
+					{
+						File = "doodads off.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Walls
+			{
+				Layer = "walls"
+				DamageLevels
+				[
+					{
+						File = "walls.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "walls_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+			Roof
+			{
+				Layer = "roofs"
+				DamageLevels
+				[
+					{
+						File = "roof.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_33.png"
+						Size = [1, 1]
+					}
+					{
+						File = "roof_66.png"
+						Size = [1, 1]
+					}
+				]
+			}
+		}
+		
+		DestroyedEffects
+		{
+			Type = DeathEffects
+			MediaEffects = &/COMMON_EFFECTS/SmallPartDestroyedDry
+			Location = [.5, .5]
+		}
+		
+		Indicators
+		{
+			Type = IndicatorSprites
+			Location = [0.5, 0.5]
+			Layer = "indicators"
+			Indicators
+			[
+				// Turned off.
+				{
+					Toggle = PowerToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/PowerOff
+						Size = [0.8, 0.8]
+					}
+				}
+				
+				// Out of power.
+				{
+					Toggle = SupplyBuffToggle
+					AtlasSprite
+					{
+						File = &/INDICATORS/NoPower
+						Size = [0.8, 0.8]
+					}
+				}
+				//Ftl activated
+				{
+					Toggle = FtlIndicator
+					AtlasSprite
+					{
+						File = &/INDICATORS/FtlActivated
+						Size = [0.8, 0.8]
+					}
+				}
+			]
+		}
+		
+		Blueprints
+		{
+			Type = BlueprintSprite
+			File = "blueprints.png"
+			Size = [1, 1]
+		}
+	}
+	StatsByCategory
+	[
+		{
+			NameKey = "StatCategories/PowerLoader"
+			Stats
+			{
+				SupplyPowerUse = &~/Part/Components/BuffProvider1/BuffAmount
+				TotalPowerLoader = (&~/Part/Components/PowerConverter/ToQuantity) / (&~/Part/Components/PowerConverter/Interval/BaseValue) / 1000
+				Frequency = 1/(&~/Part/Components/PowerConverter/Interval/BaseValue)
+			}
+		}
+	]
+}
