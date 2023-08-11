@@ -577,6 +577,62 @@ Actions
 		}
 	}
 
+	// Tractor Beam
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components"
+		Overrides
+		{
+			WeaponControllerBuffToggle
+			{
+				Type = BuffToggle
+				BuffType = AutoWeaponsEnable
+			}
+			RealPartCrew
+			{
+				Type = PartCrew
+				Crew = 4
+				DefaultPriority = &/PRIORITIES/Weapon_Crew
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [BatteryStorage]
+				CrewDestinations
+				[
+					[82/64, 82/64]
+					[238/64, 82/64]
+					[238/64, 238/64]
+					[82/64, 238/64]
+				]
+				CrewLocations
+				[
+					CrewLocation1
+					CrewLocation2
+					CrewLocation3
+					CrewLocation4
+				]
+			}
+			
+			PartCrew
+			{
+				Type = MultiToggle
+				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
+				Mode = Any
+			}
+		}
+	}
+	{
+		Action = AddMany
+		AddTo = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/ReceivableBuffs"
+		ManyToAdd = [AutoWeaponsEnable]
+	}
+	{
+		Action = Overrides
+		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats"
+		Overrides
+		{
+			CrewRequired = &~/Actions/33/Overrides/RealPartCrew/Crew
+		}
+	}
+
 	// Resource Collector
 	{
 		Action = Overrides
@@ -651,66 +707,10 @@ Actions
 	}
 	{
 		Action = Overrides
-		OverrideIn = "<ships/terran/resource_collector/resource_collector.rules>/Part/Stats"
+		OverrideIn = "<ships/terran/resource_collector/resource_collector.rules>/Part/StatsByCategory/0/Stats"
 		Overrides
 		{
-			CrewRequired = &~/Actions/33/Overrides/RealPartCrew1/Crew
+			CrewRequired = &~/Actions/36/Overrides/RealPartCrew1/Crew
 		}
 	}
-
-	// Tractor Beam
-	{
-		Action = Overrides
-		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Components"
-		Overrides
-		{
-			WeaponControllerBuffToggle
-			{
-				Type = BuffToggle
-				BuffType = AutoWeaponsEnable
-			}
-			RealPartCrew
-			{
-				Type = PartCrew
-				Crew = 4
-				DefaultPriority = &/PRIORITIES/Weapon_Crew
-				PrerequisitesBeforeCrewing = [PowerToggle]
-				HighPriorityPrerequisites = [BatteryStorage]
-				CrewDestinations
-				[
-					[82/64, 82/64]
-					[238/64, 82/64]
-					[238/64, 238/64]
-					[82/64, 238/64]
-				]
-				CrewLocations
-				[
-					CrewLocation1
-					CrewLocation2
-					CrewLocation3
-					CrewLocation4
-				]
-			}
-			
-			PartCrew
-			{
-				Type = MultiToggle
-				Toggles = [WeaponControllerBuffToggle, RealPartCrew]
-				Mode = Any
-			}
-		}
-	}
-	{
-		Action = AddMany
-		AddTo = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/ReceivableBuffs"
-		ManyToAdd = [AutoWeaponsEnable]
-	}
-	{
-		Action = Overrides
-		OverrideIn = "<ships/terran/tractor_beam_emitter/tractor_beam_emitter.rules>/Part/Stats"
-		Overrides
-		{
-			CrewRequired = &~/Actions/36/Overrides/RealPartCrew/Crew
-		}
-	}	
 ]

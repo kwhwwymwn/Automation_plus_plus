@@ -109,7 +109,7 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 			Size = [1, 1]
 		}
 		
-		BlueprintWalls : <./Data/ships/terran/walls/blueprint_walls.txt>
+		BlueprintWalls : <./Data/ships/terran/walls/blueprint_walls.rules>
 		{
 			Location = [.5, .5]
 			BlendsWithCategories = [internal_structure]
