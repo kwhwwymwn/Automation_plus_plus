@@ -8,7 +8,7 @@ Parts
 	&<auto_reactor_med/auto_reactor_med.rules>/Part
 	&<auto_reactor_large/auto_reactor_large.rules>/Part
 //	&<console/console.rules>/Part
-	//&<transformer/transformer.rules>/Part // broken, crash on launch
+	&<transformer/transformer.rules>/Part
 //	&<circuit_breaker/circuit_breaker.rules>/Part
 //	&<capacitor/capacitor.rules>/Part
 //	&<coupling_wires/coupling_wire.rules>/Part

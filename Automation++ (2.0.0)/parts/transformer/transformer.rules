@@ -79,49 +79,6 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 						File = "floor.png"
 						Size = [2, 1]
 					}
-					{
-						File = "floor_33.png"
-						Size = [2, 1]
-					}
-					{
-						File = "floor_66.png"
-						Size = [2, 1]
-					}
-				]
-			}
-			OperationalDoodad
-			{
-				Layer = "doodads_high"
-				DamageLevels
-				[
-					{
-						AnimationFiles
-						[
-							"doodads_1.png"
-							"doodads_2.png"
-							"doodads_3.png"
-							"doodads_4.png"
-							"doodads_5.png"
-							"doodads_6.png"
-							"doodads_7.png"
-							"doodads_8.png"
-							"doodads_9.png"
-							"doodads_10.png"
-						]
-						Size = [1.6, 0.8]
-						AnimationInterval = 0.125
-					}
-				]
-			}
-			NonOperationalDoodad
-			{
-				Layer = "doodads_high"
-				DamageLevels
-				[
-					{
-						File = "doodads_off.png"
-						Size = [1.6, 0.8]
-					}
 				]
 			}
 			Walls
@@ -139,17 +96,6 @@ Part : <./Data/ships/terran/base_part_terran.rules>/Part
 					}
 					{
 						File = "walls_66.png"
-						Size = [2, 1]
-					}
-				]
-			}
-			OperationalLighting
-			{
-				Layer = "lights_add"
-				DamageLevels
-				[
-					{
-						File = "lights.png"
 						Size = [2, 1]
 					}
 				]
