@@ -53,8 +53,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### small sensor
                 - graphics code
             - ##### transformer
-                - find why it's crashing
-                - graphics code
+                - update graphics code after finishing sprites
             - ##### weapon controller : check if good
                 - update graphics code after finishing sprites
             - ##### lantern : check if good
