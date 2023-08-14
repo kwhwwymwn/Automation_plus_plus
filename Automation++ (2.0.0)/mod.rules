@@ -83,11 +83,11 @@ Actions : &<parts/weapon_controller/weapon_compatibility.rules>/Actions // Weapo
 	}
 	// Tell the AI to press the UI triggers (it's not perfect but it work)
 	// Parts
-	/*{
+	{
 		Action = AddMany
 		AddTo = "<ships/terran/terran.rules>/Terran/Parts"
 		ManyToAdd = &<parts/parts.rules>/Parts
-	}*/
+	}
 	// For balance reason, shield is shield
 		// check if good
 	{

@@ -4,11 +4,11 @@ Parts
 	&<internal_structure/internal_structure.rules>/Part
 	
 	//auto reactors, add-ons, and wires
-	&<auto_reactor_small/auto_reactor_small.rules>/Part
-	&<auto_reactor_med/auto_reactor_med.rules>/Part
-	&<auto_reactor_large/auto_reactor_large.rules>/Part
+	//&<auto_reactor_small/auto_reactor_small.rules>/Part
+	//&<auto_reactor_med/auto_reactor_med.rules>/Part
+	//&<auto_reactor_large/auto_reactor_large.rules>/Part
 //	&<console/console.rules>/Part
-	&<transformer/transformer.rules>/Part
+	//&<transformer/transformer.rules>/Part
 //	&<circuit_breaker/circuit_breaker.rules>/Part
 //	&<capacitor/capacitor.rules>/Part
 //	&<coupling_wires/coupling_wire.rules>/Part
@@ -22,7 +22,7 @@ Parts
 	//auto loaders
 //	&<auto_loader_small/auto_loader_small.rules>/Part
 //	&<auto_loader_med/auto_loader_med.rules>/Part
-	&<auto_loader_adv/auto_loader_adv.rules>/Part
+	//&<auto_loader_adv/auto_loader_adv.rules>/Part
 //	&<auto_loader_compact/auto_loader_compact.rules>/Part
 //	&<auto_loader_ammo/auto_loader_ammo.rules>/Part
 //	&<auto_loader_missile_he/auto_loader_missile_he.rules>/Part
@@ -38,8 +38,8 @@ Parts
 	
 	//drones and stuff for drones
 //	&<drone_core_small/drone_core_small.rules>/Part
-	&<drone_core_large/drone_core_large.rules>/Part
-	&<nodes/apex_node.rules>/Part
+	//&<drone_core_large/drone_core_large.rules>/Part
+	//&<nodes/apex_node.rules>/Part
 //	&<nodes/apex_node_offense.rules>/Part
 //	&<nodes/apex_node_power.rules>/Part
 //	&<nodes/apex_node_scout.rules>/Part
