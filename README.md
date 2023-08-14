@@ -27,7 +27,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### auto laser
             - ##### auto rifle
             - ##### auto loaders
-                - advanced auto loader : check if good
+                - advanced auto loader : find if freeze related
             - ##### auto reactors
                 - graphics code after doing sprites
             - ##### capacitor
@@ -53,6 +53,7 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
             - ##### small sensor
                 - graphics code
             - ##### transformer
+                - find why it's crashing
                 - graphics code
             - ##### weapon controller : check if good
                 - update graphics code after finishing sprites
