@@ -83,11 +83,11 @@ Actions : &<parts/weapon_controller/weapon_compatibility.rules>/Actions // Weapo
 	}
 	// Tell the AI to press the UI triggers (it's not perfect but it work)
 	// Parts
-	{
+	/*{
 		Action = AddMany
 		AddTo = "<ships/terran/terran.rules>/Terran/Parts"
 		ManyToAdd = &<parts/parts.rules>/Parts
-	}
+	}*/
 	// For balance reason, shield is shield
 		// check if good
 	{
@@ -135,7 +135,7 @@ Actions : &<parts/weapon_controller/weapon_compatibility.rules>/Actions // Weapo
 		]
 	}
 	// Logo Ship
-	{
+	/*{
 		// add all parts then check if good
 		Action = Overrides
 		OverrideIn = "<gui/menus.rules>"
@@ -144,7 +144,7 @@ Actions : &<parts/weapon_controller/weapon_compatibility.rules>/Actions // Weapo
 			LogoShip = "ships/logo.ship.png"
 		}
 		// redo logo ship
-	}
+	}*/
 	// Decals
 	{
 		// check if good

@@ -121,7 +121,8 @@ Actions
 				Type = PartCrew
 				Crew = 1
 				DefaultPriority = &/PRIORITIES/Weapon_Crew
-				PrerequisitesBeforeCrewing = [AmmoPrereq, PowerToggle]
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [CombinedAmmo]
 				CrewDestinations
 				[
 					[1.375, 1.25]
@@ -171,7 +172,8 @@ Actions
 				Type = PartCrew
 				Crew = 2
 				DefaultPriority = &/PRIORITIES/Weapon_Crew
-				PrerequisitesBeforeCrewing = [AmmoPrereq, PowerToggle]
+				PrerequisitesBeforeCrewing = [PowerToggle]
+				HighPriorityPrerequisites = [AmmoPrereq]
 				CrewDestinations
 				[
 					[.95, 1.4]
